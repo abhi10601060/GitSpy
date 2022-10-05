@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/userFragment">
+
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.example.gitspy.ui.fragments.UserFragment"
+        android:label="UserFragment" />
+    <fragment
+        android:id="@+id/repositoryFragment"
+        android:name="com.example.gitspy.ui.fragments.RepositoryFragment"
+        android:label="RepositoryFragment" />
+
+</navigation>
