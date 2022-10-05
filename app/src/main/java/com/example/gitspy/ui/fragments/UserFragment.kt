@@ -1,12 +1,15 @@
 package com.example.gitspy.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.gitspy.R
 import com.example.gitspy.models.User
@@ -30,8 +33,13 @@ class UserFragment: Fragment(R.layout.fragment_user) {
         userSearchButton.setOnClickListener(View.OnClickListener {
             val userName = searchBox.text.toString()
             if (userName!= ""){
+                hideKeyBoard()
                 viewModel.getUser(userName)
             }
+        })
+
+        userOpenInGithubBtn.setOnClickListener(View.OnClickListener {
+            handleOpenInGithub()
         })
 
         viewModel.user.observe(viewLifecycleOwner , Observer {
@@ -52,8 +60,9 @@ class UserFragment: Fragment(R.layout.fragment_user) {
                     Glide.with(requireContext())
                         .load("https://octodex.github.com/images/homercat.png")
                         .into(errorImg)
-                    userErrorRL.visibility = View.VISIBLE
+                    userErrorMessage.text = "Oops!!! User not found"
 
+                    userErrorRL.visibility = View.VISIBLE
                     userProfileCard.visibility = View.GONE
 
                     Log.d("ABHI", "onViewCreated: Error Happened during api call")
@@ -61,6 +70,30 @@ class UserFragment: Fragment(R.layout.fragment_user) {
             }
         })
 
+
+    }
+
+    private fun hideKeyBoard() {
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().windowToken,0)
+    }
+
+    private fun initViews(view : View) {
+        searchBox =  view.findViewById(R.id.userSearchBox)
+        userProfileCard.visibility = View.GONE
+        userErrorRL.visibility = View.VISIBLE
+        Glide.with(requireContext())
+            .load("https://www.openfl.org/images/home/OpenSource.png")
+            .into(errorImg)
+        userErrorMessage.text = "Welcome to GitSpy..."
+    }
+
+    private fun handleOpenInGithub() {
+        viewModel.user.observe(viewLifecycleOwner , Observer {
+            val bundle = Bundle()
+            bundle.putString("url" , it.data?.html_url)
+            findNavController().navigate(R.id.action_userFragment_to_githubFragment ,bundle)
+        })
 
     }
 
@@ -102,8 +135,5 @@ class UserFragment: Fragment(R.layout.fragment_user) {
 
     }
 
-    private fun initViews(view : View) {
 
-        searchBox =  view.findViewById(R.id.userSearchBox)
-    }
 }

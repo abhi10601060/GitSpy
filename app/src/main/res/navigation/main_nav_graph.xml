@@ -7,10 +7,23 @@
     <fragment
         android:id="@+id/userFragment"
         android:name="com.example.gitspy.ui.fragments.UserFragment"
-        android:label="UserFragment" />
+        android:label="UserFragment" >
+        <action
+            android:id="@+id/action_userFragment_to_githubFragment"
+            app:destination="@id/githubFragment" />
+    </fragment>
     <fragment
         android:id="@+id/repositoryFragment"
         android:name="com.example.gitspy.ui.fragments.RepositoryFragment"
         android:label="RepositoryFragment" />
+    <fragment
+        android:id="@+id/githubFragment"
+        android:name="com.example.gitspy.ui.fragments.GithubFragment"
+        android:label="GithubFragment" >
+        <argument
+            android:name="url"
+            app:argType="string"
+            android:defaultValue="null" />
+    </fragment>
 
 </navigation>

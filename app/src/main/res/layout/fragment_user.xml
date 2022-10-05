@@ -41,8 +41,8 @@
                 android:drawableStart="@drawable/ic_baseline_search"
                 android:drawablePadding="5dp"
                 android:hint="Search..."
+                android:inputType="text"
                 android:maxLines="1"
-                android:minLines="1"
                 android:paddingStart="5dp"
                 android:textColor="#f5f5f5"
                 android:textColorHint="#f5f5f5"
@@ -78,6 +78,7 @@
             android:layout_marginTop="50dp" />
 
         <TextView
+            android:id="@+id/userErrorMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/errorImg"
@@ -260,6 +261,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/userInfoRL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/statsRL"
@@ -344,6 +346,15 @@
 
 
                 </RelativeLayout>
+
+                <Button
+                    android:id="@+id/userOpenInGithubBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/userInfoRL"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:text="Open In Github" />
 
 
             </RelativeLayout>
