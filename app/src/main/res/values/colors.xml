@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="button">#F5F5F5F5</color>
+    <color name="githubBlue">#4A9FFF</color>
+    <color name="githubCardBlue">#132339</color>
+
 </resources>
