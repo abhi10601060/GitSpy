@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="10dp"
+    app:cardCornerRadius="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/parentRL"
+        android:background="#21262D">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/repoInfoRL"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/repoLogoImg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/repoNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/repoLogoImg"
+                android:text="Kotlin.Coroutines"
+                android:textColor="@color/button"
+                android:textSize="25dp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/repoNameText"
+                android:text="google"
+                android:textColor="@color/button"
+                android:layout_toRightOf="@+id/repoLogoImg"
+                android:layout_marginLeft="15dp"
+                android:textSize="18dp"
+                android:id="@+id/ownerNameText"/>
+
+            <TextView
+                android:id="@+id/repoDescText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ownerNameText"
+                android:layout_marginTop="15dp"
+                android:text="A collection of extension libraries for Jetpack Compose"
+                android:textColor="@color/button"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_baseline_star"
+                android:layout_below="@id/repoDescText"
+                android:layout_marginTop="10dp"
+                android:id="@+id/repoStarImg"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/repoStarImg"
+                android:text="6 today"
+                android:textColor="@color/button"
+                android:layout_toRightOf="@id/repoStarImg"
+                android:layout_marginLeft="5dp"
+                android:textSize="15dp"
+                android:id="@+id/repoStarsText"
+                />
+             <ImageView
+                 android:layout_width="15dp"
+                 android:layout_height="15dp"
+                 android:src="@drawable/ic_baseline_circle"
+                 android:layout_alignBottom="@id/repoStarImg"
+                 android:layout_toRightOf="@id/repoStarsText"
+                 android:layout_marginLeft="10dp"
+                 android:id="@+id/languageDotImg"
+                 android:layout_marginBottom="2dp"/>
+
+            <TextView
+                android:id="@+id/repoLanguageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/repoStarsText"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/languageDotImg"
+                android:text="Not available"
+                android:textColor="@color/button" />
+
+            <ImageView
+                android:id="@+id/repoForksImg"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/repoStarImg"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_outline_polyline" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="229 Forks >"
+                android:textColor="@color/button"
+                android:layout_alignBottom="@id/repoForksImg"
+                android:id="@+id/repoForksText"
+                android:layout_toRightOf="@id/repoForksImg"
+                android:layout_marginLeft="10dp"/>
+
+            <Button
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/repoForksImg"
+                android:layout_marginTop="20dp"
+                android:text="Track repository"
+                android:textAllCaps="false"
+                android:id="@+id/trackRepoBtn"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+</com.google.android.material.card.MaterialCardView>

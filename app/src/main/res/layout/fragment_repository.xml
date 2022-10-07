@@ -4,11 +4,82 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/repotext"
+    <RelativeLayout
+        android:id="@+id/repoHeaderRL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#21262D">
+
+        <TextView
+            android:id="@+id/txt_search_repo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="15dp"
+            android:text="Search Repository"
+            android:textColor="#f5f5f5"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/searchLL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_search_repo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/repoSearchBox"
+                android:layout_width="250dp"
+                android:layout_height="48dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/search_background"
+                android:drawableStart="@drawable/ic_baseline_search"
+                android:drawablePadding="5dp"
+                android:hint="Search..."
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="5dp"
+                android:textColor="#f5f5f5"
+                android:textColorHint="#f5f5f5"
+
+                />
+
+            <Button
+                android:id="@+id/repoSearchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_marginTop="3dp"
+                android:text="Search"
+                android:textAllCaps="false"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/repoHeaderRL"
+        android:id="@+id/searchRepoRV"/>
+
+
+    <ProgressBar
+        android:indeterminateTint="@color/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="repository"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true"
+        android:id="@+id/searchRepoProgressBar"
+        android:visibility="gone"/>
+
+
+
+
+
+
 
 </RelativeLayout>
