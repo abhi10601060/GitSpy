@@ -1,10 +1,13 @@
 package com.example.gitspy.models
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "repositories")
 data class Item(
+    @PrimaryKey
+    var id: Int,
     var commits_url: String,
     var contributors_url: String,
     var created_at: String,
@@ -15,8 +18,6 @@ data class Item(
     var has_issues: Boolean,
     var has_pages: Boolean,
     var html_url: String,
-    @PrimaryKey
-    var id: Int,
     var issue_comment_url: String,
     var issue_events_url: String,
     var issues_url: String,
@@ -25,6 +26,7 @@ data class Item(
     var name: String,
     var open_issues: Int,
     var open_issues_count: Int,
+    @Embedded
     var owner: Owner,
     var pulls_url: String,
     var pushed_at: String,

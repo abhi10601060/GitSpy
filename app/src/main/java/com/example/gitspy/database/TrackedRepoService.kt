@@ -9,7 +9,7 @@ import androidx.room.TypeConverters
 import com.example.gitspy.models.Item
 
 @Database(entities = [Item::class] , version = 1)
-@TypeConverters(Conveters::class)
+//@TypeConverters(Conveters::class)
 abstract class TrackedRepoService : RoomDatabase() {
 
     abstract  fun trackRepoDao() : TrackRepoDao

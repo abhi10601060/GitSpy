@@ -29,5 +29,9 @@
             app:argType="string"
             android:defaultValue="null" />
     </fragment>
+    <fragment
+        android:id="@+id/trackedRepoFragment"
+        android:name="com.example.gitspy.ui.fragments.TrackedRepoFragment"
+        android:label="TrackedRepoFragment" />
 
 </navigation>

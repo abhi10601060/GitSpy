@@ -56,4 +56,10 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
         database.trackRepoDao().trackRepo(item)
     }
 
+    var trackedRepos : LiveData<List<Item>> = MutableLiveData()
+
+    fun getAllTrackedRepos(){
+        trackedRepos = database.trackRepoDao().getAllTrackedRepos()
+    }
+
 }

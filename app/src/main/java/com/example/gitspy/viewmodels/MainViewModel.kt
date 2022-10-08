@@ -42,5 +42,16 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    val trackedRepos : LiveData<List<Item>>
+    get() = repository.trackedRepos
+    init {
+        getAllTrackedRepos()
+    }
+    fun getAllTrackedRepos(){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getAllTrackedRepos()
+        }
+    }
+
 
 }
