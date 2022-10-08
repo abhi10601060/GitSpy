@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -38,8 +39,23 @@ class RepoAdapter(private val context: Context) : ListAdapter<Item, RepoAdapter.
         }
         holder.forks.text = "${repo.forks_count} Forks"
 
+        holder.parent.setOnClickListener(View.OnClickListener {
+            itemClickListener?.let {
+                it(repo)
+            }
+        })
+
+
 
     }
+
+    private var itemClickListener : ((Item) -> Unit)? = null
+
+    fun setOnItemClickListener(listener : ((Item) -> Unit)){
+        itemClickListener = listener
+    }
+
+
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
@@ -51,6 +67,7 @@ class RepoAdapter(private val context: Context) : ListAdapter<Item, RepoAdapter.
         val language : TextView = itemView.findViewById(R.id.repoLanguageText)
         val forks : TextView = itemView.findViewById(R.id.repoForksText)
         val trackBtn : Button = itemView.findViewById(R.id.trackRepoBtn)
+        val parent : RelativeLayout = itemView.findViewById(R.id.parentRL)
 
     }
 

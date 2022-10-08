@@ -1,11 +1,13 @@
 package com.example.gitspy.ui.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitspy.R
 import com.example.gitspy.adapters.RepoAdapter
@@ -26,6 +28,7 @@ class RepositoryFragment : Fragment(R.layout.fragment_repository) {
         viewModel = (activity as MainActivity).viewModel
 
         repoSearchButton.setOnClickListener(View.OnClickListener {
+            hideKeyboard()
             val repoName = repoSearchBox.text.toString()
             viewModel.getRepos(repoName)
         })
@@ -53,9 +56,16 @@ class RepositoryFragment : Fragment(R.layout.fragment_repository) {
             }
         })
 
+        adapter.setOnItemClickListener {
+            val bundle = Bundle()
+            bundle.putString("url" , it.html_url)
+            findNavController().navigate(R.id.action_repositoryFragment_to_githubFragment , bundle)
+        }
 
 
-
-
+    }
+    fun hideKeyboard(){
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().windowToken , 0)
     }
 }

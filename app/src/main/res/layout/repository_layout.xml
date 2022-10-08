@@ -13,11 +13,10 @@
         android:background="#21262D">
 
 
-
         <RelativeLayout
+            android:id="@+id/repoInfoRL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/repoInfoRL"
             android:padding="15dp">
 
             <ImageView
@@ -37,16 +36,17 @@
                 android:textColor="@color/button"
                 android:textSize="25dp"
                 android:textStyle="bold" />
+
             <TextView
+                android:id="@+id/ownerNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/repoNameText"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/repoLogoImg"
                 android:text="google"
                 android:textColor="@color/button"
-                android:layout_toRightOf="@+id/repoLogoImg"
-                android:layout_marginLeft="15dp"
-                android:textSize="18dp"
-                android:id="@+id/ownerNameText"/>
+                android:textSize="18dp" />
 
             <TextView
                 android:id="@+id/repoDescText"
@@ -59,32 +59,33 @@
                 android:textSize="18dp" />
 
             <ImageView
+                android:id="@+id/repoStarImg"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_baseline_star"
                 android:layout_below="@id/repoDescText"
                 android:layout_marginTop="10dp"
-                android:id="@+id/repoStarImg"/>
+                android:src="@drawable/ic_baseline_star" />
+
             <TextView
+                android:id="@+id/repoStarsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/repoStarImg"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/repoStarImg"
                 android:text="6 today"
                 android:textColor="@color/button"
-                android:layout_toRightOf="@id/repoStarImg"
-                android:layout_marginLeft="5dp"
-                android:textSize="15dp"
-                android:id="@+id/repoStarsText"
-                />
-             <ImageView
-                 android:layout_width="15dp"
-                 android:layout_height="15dp"
-                 android:src="@drawable/ic_baseline_circle"
-                 android:layout_alignBottom="@id/repoStarImg"
-                 android:layout_toRightOf="@id/repoStarsText"
-                 android:layout_marginLeft="10dp"
-                 android:id="@+id/languageDotImg"
-                 android:layout_marginBottom="2dp"/>
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/languageDotImg"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignBottom="@id/repoStarImg"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="2dp"
+                android:layout_toRightOf="@id/repoStarsText"
+                android:src="@drawable/ic_baseline_circle" />
 
             <TextView
                 android:id="@+id/repoLanguageText"
@@ -105,24 +106,24 @@
                 android:src="@drawable/ic_outline_polyline" />
 
             <TextView
+                android:id="@+id/repoForksText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="229 Forks >"
-                android:textColor="@color/button"
                 android:layout_alignBottom="@id/repoForksImg"
-                android:id="@+id/repoForksText"
+                android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/repoForksImg"
-                android:layout_marginLeft="10dp"/>
+                android:text="229 Forks >"
+                android:textColor="@color/button" />
 
             <Button
+                android:id="@+id/trackRepoBtn"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/repoForksImg"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:text="Track repository"
-                android:textAllCaps="false"
-                android:id="@+id/trackRepoBtn"/>
+                android:textAllCaps="false" />
 
         </RelativeLayout>
 

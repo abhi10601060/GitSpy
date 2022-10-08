@@ -15,7 +15,11 @@
     <fragment
         android:id="@+id/repositoryFragment"
         android:name="com.example.gitspy.ui.fragments.RepositoryFragment"
-        android:label="RepositoryFragment" />
+        android:label="RepositoryFragment" >
+        <action
+            android:id="@+id/action_repositoryFragment_to_githubFragment"
+            app:destination="@id/githubFragment" />
+    </fragment>
     <fragment
         android:id="@+id/githubFragment"
         android:name="com.example.gitspy.ui.fragments.GithubFragment"
