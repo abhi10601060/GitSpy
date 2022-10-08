@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gitspy.R
 import com.example.gitspy.adapters.RepoAdapter
+import com.example.gitspy.models.Item
 import com.example.gitspy.models.RepoList
 import com.example.gitspy.ui.activities.MainActivity
 import com.example.gitspy.utility.Resource
@@ -62,10 +63,15 @@ class RepositoryFragment : Fragment(R.layout.fragment_repository) {
             findNavController().navigate(R.id.action_repositoryFragment_to_githubFragment , bundle)
         }
 
+        adapter.setOnTrackClickListener {
+            viewModel.addToTrack(it)
+        }
 
     }
     fun hideKeyboard(){
         val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(requireView().windowToken , 0)
     }
+
+
 }

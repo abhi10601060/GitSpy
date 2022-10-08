@@ -3,6 +3,7 @@ package com.example.gitspy.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gitspy.models.Item
 import com.example.gitspy.models.RepoList
 import com.example.gitspy.models.User
 import com.example.gitspy.utility.Repository
@@ -29,6 +30,15 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun getRepos(repoName : String){
         viewModelScope.launch(Dispatchers.IO) {
             repository.getRepos(repoName)
+        }
+    }
+
+
+//    ***************************************************** Handling Tracking ****************************************************************
+
+    fun addToTrack(item: Item){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.addToTrack(item)
         }
     }
 

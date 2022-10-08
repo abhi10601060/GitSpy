@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gitspy.R
 import com.example.gitspy.models.Item
+import com.example.gitspy.ui.fragments.RepositoryFragment
 
 
 class RepoAdapter(private val context: Context) : ListAdapter<Item, RepoAdapter.ViewHolder>(DiffutilCallback()) {
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.repository_layout , parent , false)
@@ -45,6 +47,12 @@ class RepoAdapter(private val context: Context) : ListAdapter<Item, RepoAdapter.
             }
         })
 
+        holder.trackBtn.setOnClickListener(View.OnClickListener {
+            trackClickListener?.let {
+                it(repo)
+            }
+        })
+
 
 
     }
@@ -55,6 +63,11 @@ class RepoAdapter(private val context: Context) : ListAdapter<Item, RepoAdapter.
         itemClickListener = listener
     }
 
+    private var trackClickListener : ((Item) -> Unit)? = null
+
+    fun setOnTrackClickListener(listener : ( (Item) -> Unit)){
+        trackClickListener = listener
+    }
 
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){

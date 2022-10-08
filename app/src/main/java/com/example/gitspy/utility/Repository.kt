@@ -2,12 +2,14 @@ package com.example.gitspy.utility
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.gitspy.database.TrackedRepoService
+import com.example.gitspy.models.Item
 import com.example.gitspy.models.RepoList
 import com.example.gitspy.models.User
 import com.example.gitspy.network.GitSpyService
 import retrofit2.Response
 
-class Repository( private val gitSpyService: GitSpyService){
+class Repository( private val gitSpyService: GitSpyService , private val database: TrackedRepoService){
 
     private var userLivedata  = MutableLiveData<Resource<User>>()
 
@@ -45,6 +47,13 @@ class Repository( private val gitSpyService: GitSpyService){
             return Resource.Success<RepoList>(response.body()!!)
         }
         return Resource.Error<RepoList>(response.message())
+    }
+
+
+//    ***************************************************** Handling Tracking ****************************************************************
+
+    suspend fun addToTrack(item : Item){
+        database.trackRepoDao().trackRepo(item)
     }
 
 }
