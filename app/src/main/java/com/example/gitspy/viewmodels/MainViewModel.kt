@@ -53,5 +53,11 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
+    fun deleteRepo(item: Item){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteRepo(item)
+        }
+    }
+
 
 }

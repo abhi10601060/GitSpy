@@ -38,6 +38,13 @@ class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, Tracke
             holder.language.text = repo.language
         }
         holder.forks.text = "${repo.forks_count} Forks"
+
+        holder.cancel.setOnClickListener(View.OnClickListener {
+            cancelListener?.let {
+                it(repo)
+            }
+        })
+
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -52,6 +59,7 @@ class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, Tracke
         val commits : TextView = itemView.findViewById(R.id.trackedCommits)
         val releases : TextView = itemView.findViewById(R.id.trackedReleases)
         val prs : TextView = itemView.findViewById(R.id.trackedPR)
+        val cancel : ImageView = itemView.findViewById(R.id.trackedRepoCancelBtn)
 
     }
 
@@ -64,6 +72,12 @@ class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, Tracke
             return  oldItem==newItem
         }
 
+    }
+
+    private var cancelListener: ((Item) -> Unit)? = null
+
+    fun onCancelClickListener(listener : ((Item) -> Unit)) {
+        cancelListener = listener
     }
 
 

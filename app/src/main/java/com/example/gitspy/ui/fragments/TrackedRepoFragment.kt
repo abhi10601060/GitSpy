@@ -1,5 +1,7 @@
 package com.example.gitspy.ui.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -34,10 +36,17 @@ class TrackedRepoFragment :  Fragment(R.layout.faragment_tracked_repo) {
 
         })
 
+        adapter.onCancelClickListener {
+            AlertDialog.Builder(requireContext())
+                .setTitle("Un-track Repo")
+                .setMessage("Are you sure , you want to un-track this repository...")
+                .setPositiveButton("Yes" , DialogInterface.OnClickListener{
+                    dialog , i -> viewModel.deleteRepo(item = it)
+                })
+                .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->  } )
+                .create().show()
 
-
-
-
+        }
 
     }
 }

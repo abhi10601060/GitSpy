@@ -62,4 +62,8 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
         trackedRepos = database.trackRepoDao().getAllTrackedRepos()
     }
 
+    suspend fun deleteRepo(item: Item){
+        database.trackRepoDao().deleteRepo(item)
+    }
+
 }
