@@ -4,9 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.RelativeLayout
+
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,22 +14,22 @@ import com.bumptech.glide.Glide
 import com.example.gitspy.R
 import com.example.gitspy.models.Item
 
-
-class RepoAdapter(private val context: Context) : ListAdapter<Item, RepoAdapter.ViewHolder>(DiffutilCallback()) {
+class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, TrackedRepoAdapter.ViewHolder>(DiffutilCallback()){
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.repository_layout , parent , false)
-        return  ViewHolder(view)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.tracked_repos_layout , parent ,false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val repo = getItem(position)
-
         Glide.with(context)
             .load(repo.owner.avatar_url)
             .into(holder.logo)
 
+        holder.repoName.text = repo.name
+        holder.owner.text = repo.owner.login
         holder.repoName.text = repo.name
         holder.owner.text = repo.owner.login
         holder.desc.text = repo.description
@@ -39,47 +38,20 @@ class RepoAdapter(private val context: Context) : ListAdapter<Item, RepoAdapter.
             holder.language.text = repo.language
         }
         holder.forks.text = "${repo.forks_count} Forks"
-
-        holder.parent.setOnClickListener(View.OnClickListener {
-            itemClickListener?.let {
-                it(repo)
-            }
-        })
-
-        holder.trackBtn.setOnClickListener(View.OnClickListener {
-            trackClickListener?.let {
-                it(repo)
-            }
-        })
-
-
-
     }
-
-    private var itemClickListener : ((Item) -> Unit)? = null
-
-    fun setOnItemClickListener(listener : ((Item) -> Unit)){
-        itemClickListener = listener
-    }
-
-    private var trackClickListener : ((Item) -> Unit)? = null
-
-    fun setOnTrackClickListener(listener : ( (Item) -> Unit)){
-        trackClickListener = listener
-    }
-
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-
         val logo : ImageView = itemView.findViewById(R.id.trackedRepoLogoImg)
         val repoName : TextView = itemView.findViewById(R.id.trackedRepoNameText)
         val owner : TextView = itemView.findViewById(R.id.trackedRepoOwnerNameText)
-        val desc :TextView = itemView.findViewById(R.id.trackedRepoDescText)
         val stars : TextView = itemView.findViewById(R.id.trackedRepoStarsText)
         val language : TextView = itemView.findViewById(R.id.trackedRepoLanguageText)
         val forks : TextView = itemView.findViewById(R.id.trackedRepoForksText)
-        val trackBtn : Button = itemView.findViewById(R.id.trackRepoBtn)
-        val parent : RelativeLayout = itemView.findViewById(R.id.parentRL)
+        val desc : TextView = itemView.findViewById(R.id.trackedRepoDescText)
+        val issues : TextView = itemView.findViewById(R.id.trackedIssues)
+        val commits : TextView = itemView.findViewById(R.id.trackedCommits)
+        val releases : TextView = itemView.findViewById(R.id.trackedReleases)
+        val prs : TextView = itemView.findViewById(R.id.trackedPR)
 
     }
 
@@ -93,6 +65,8 @@ class RepoAdapter(private val context: Context) : ListAdapter<Item, RepoAdapter.
         }
 
     }
+
+
 
 
 }

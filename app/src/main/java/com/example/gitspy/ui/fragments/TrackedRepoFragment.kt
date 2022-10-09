@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gitspy.R
 import com.example.gitspy.adapters.RepoAdapter
+import com.example.gitspy.adapters.TrackedRepoAdapter
 import com.example.gitspy.ui.activities.MainActivity
 import com.example.gitspy.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.faragment_tracked_repo.*
@@ -15,14 +16,14 @@ import kotlinx.android.synthetic.main.faragment_tracked_repo.*
 class TrackedRepoFragment :  Fragment(R.layout.faragment_tracked_repo) {
 
     private lateinit var viewModel : MainViewModel
-    private lateinit var  adapter : RepoAdapter
+    private lateinit var  adapter : TrackedRepoAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as MainActivity).viewModel
 
-        adapter = RepoAdapter(requireContext())
+        adapter = TrackedRepoAdapter(requireContext())
 
         viewModel.trackedRepos.observe(viewLifecycleOwner , Observer {
             if (it!=null){

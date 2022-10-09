@@ -20,59 +20,59 @@
             android:padding="15dp">
 
             <ImageView
-                android:id="@+id/repoLogoImg"
+                android:id="@+id/trackedRepoLogoImg"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="5dp"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
-                android:id="@+id/repoNameText"
+                android:id="@+id/trackedRepoNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/repoLogoImg"
+                android:layout_toRightOf="@+id/trackedRepoLogoImg"
                 android:text="Kotlin.Coroutines"
                 android:textColor="@color/button"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/ownerNameText"
+                android:id="@+id/trackedRepoOwnerNameText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/repoNameText"
+                android:layout_below="@+id/trackedRepoNameText"
                 android:layout_marginLeft="15dp"
-                android:layout_toRightOf="@+id/repoLogoImg"
+                android:layout_toRightOf="@+id/trackedRepoLogoImg"
                 android:text="google"
                 android:textColor="@color/button"
                 android:textSize="18dp" />
 
             <TextView
-                android:id="@+id/repoDescText"
+                android:id="@+id/trackedRepoDescText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ownerNameText"
+                android:layout_below="@+id/trackedRepoOwnerNameText"
                 android:layout_marginTop="15dp"
                 android:text="A collection of extension libraries for Jetpack Compose"
                 android:textColor="@color/button"
                 android:textSize="18dp" />
 
             <ImageView
-                android:id="@+id/repoStarImg"
+                android:id="@+id/trackedRepoStarImg"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_below="@id/repoDescText"
+                android:layout_below="@id/trackedRepoDescText"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_baseline_star" />
 
             <TextView
-                android:id="@+id/repoStarsText"
+                android:id="@+id/trackedRepoStarsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/repoStarImg"
+                android:layout_alignBottom="@id/trackedRepoStarImg"
                 android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@id/repoStarImg"
+                android:layout_toRightOf="@id/trackedRepoStarImg"
                 android:text="6 today"
                 android:textColor="@color/button"
                 android:textSize="15dp" />
@@ -81,37 +81,37 @@
                 android:id="@+id/languageDotImg"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:layout_alignBottom="@id/repoStarImg"
+                android:layout_alignBottom="@id/trackedRepoStarImg"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="2dp"
-                android:layout_toRightOf="@id/repoStarsText"
+                android:layout_toRightOf="@id/trackedRepoStarsText"
                 android:src="@drawable/ic_baseline_circle" />
 
             <TextView
-                android:id="@+id/repoLanguageText"
+                android:id="@+id/trackedRepoLanguageText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/repoStarsText"
+                android:layout_alignBottom="@id/trackedRepoStarsText"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/languageDotImg"
                 android:text="Not available"
                 android:textColor="@color/button" />
 
             <ImageView
-                android:id="@+id/repoForksImg"
+                android:id="@+id/trackedRepoForksImg"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_below="@id/repoStarImg"
+                android:layout_below="@id/trackedRepoStarImg"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_outline_polyline" />
 
             <TextView
-                android:id="@+id/repoForksText"
+                android:id="@+id/trackedRepoForksText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/repoForksImg"
+                android:layout_alignBottom="@id/trackedRepoForksImg"
                 android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/repoForksImg"
+                android:layout_toRightOf="@id/trackedRepoForksImg"
                 android:text="229 Forks >"
                 android:textColor="@color/button" />
 
@@ -119,7 +119,7 @@
                 android:id="@+id/trackRepoBtn"
                 android:layout_width="280dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/repoForksImg"
+                android:layout_below="@+id/trackedRepoForksImg"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:text="Track repository"

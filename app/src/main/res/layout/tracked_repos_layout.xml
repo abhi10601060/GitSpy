@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    app:cardCornerRadius="10dp"
+    app:guidelineUseRtl="true">
+
+    <RelativeLayout
+        android:id="@+id/trackedParentRL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#21262D">
+
+
+        <RelativeLayout
+            android:id="@+id/trackedRepoInfoRL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+
+            <ImageView
+                android:id="@+id/trackedRepoLogoImg"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="5dp"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/trackedRepoNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/trackedRepoLogoImg"
+                android:text="Kotlin.Coroutines"
+                android:textColor="@color/button"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/trackedRepoOwnerNameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/trackedRepoNameText"
+                android:layout_marginLeft="15dp"
+                android:layout_toRightOf="@+id/trackedRepoLogoImg"
+                android:text="google"
+                android:textColor="@color/button"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/trackedRepoDescText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/trackedRepoOwnerNameText"
+                android:layout_marginTop="8dp"
+                android:text="A collection of extension libraries for Jetpack Compose"
+                android:textColor="@color/button"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/trackedRepoStarImg"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@id/trackedRepoDescText"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_baseline_star" />
+
+            <TextView
+                android:id="@+id/trackedRepoStarsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/trackedRepoStarImg"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/trackedRepoStarImg"
+                android:text="6 today"
+                android:textColor="@color/button"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/languageDotImg"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignBottom="@id/trackedRepoStarImg"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="2dp"
+                android:layout_toRightOf="@id/trackedRepoStarsText"
+                android:src="@drawable/ic_baseline_circle" />
+
+            <TextView
+                android:id="@+id/trackedRepoLanguageText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/trackedRepoStarsText"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/languageDotImg"
+                android:text="Not available"
+                android:textColor="@color/button" />
+
+            <ImageView
+                android:id="@+id/trackedRepoForksImg"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignBottom="@id/trackedRepoLanguageText"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/trackedRepoLanguageText"
+                android:src="@drawable/ic_outline_polyline" />
+
+            <TextView
+                android:id="@+id/trackedRepoForksText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/trackedRepoForksImg"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/trackedRepoForksImg"
+                android:text="229 Forks >"
+                android:textColor="@color/button" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/trackedRepoForksImg"
+                android:layout_marginTop="15dp"
+                android:id="@+id/statsLL1"
+                >
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" >
+                </Space>
+
+                <RelativeLayout
+                    android:id="@+id/IssuesRL"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/repos_background"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/trackedRepoIssuesText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Issues"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/githubBlue"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/trackedIssues"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/trackedRepoIssuesText"
+                        android:layout_centerHorizontal="true"
+                        android:text="1000"
+                        android:textColor="@color/button"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="3" >
+                </Space>
+
+                <RelativeLayout
+                    android:id="@+id/PRsRL"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/repos_background"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/trackedRepoPRText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="Pull request"
+                        android:textColor="@color/githubBlue"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/trackedPR"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/trackedRepoPRText"
+                        android:layout_centerHorizontal="true"
+                        android:text="06"
+                        android:textColor="@color/button"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" >
+                </Space>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/statsLL1"
+                android:layout_marginTop="10dp">
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" >
+                </Space>
+
+                <RelativeLayout
+                    android:id="@+id/CommitsRL"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/PRsRL"
+                    android:background="@drawable/repos_background"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/trackedRepoCommitsText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Commit"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/githubBlue"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/trackedCommits"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/trackedRepoCommitsText"
+                        android:layout_centerHorizontal="true"
+                        android:text="89"
+                        android:textColor="@color/button"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" >
+                </Space>
+
+                <RelativeLayout
+                    android:id="@+id/ReleasesRL"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/repos_background"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/trackedRepoReleasesText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Release"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@color/githubBlue"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/trackedReleases"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/trackedRepoReleasesText"
+                        android:layout_centerHorizontal="true"
+                        android:text="284"
+                        android:textColor="@color/button"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" >
+                </Space>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_outline_cancel"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="10dp"
+            android:id="@+id/trackedRepoCancelBtn"/>
+
+
+    </RelativeLayout>
+
+
+</com.google.android.material.card.MaterialCardView>
