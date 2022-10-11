@@ -9,6 +9,7 @@ import com.example.gitspy.models.RepoList
 import com.example.gitspy.models.User
 import com.example.gitspy.models.commits.CommitList
 import com.example.gitspy.models.issues.Issues
+import com.example.gitspy.models.releases.Releases
 import com.example.gitspy.network.GitSpyService
 import retrofit2.Response
 
@@ -125,6 +126,29 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
         return Resource.Error<CommitList>(response.message())
     }
 
+//  ***************************************************** Handling Commits ****************************************************************
+
+    suspend fun addReleases(owner: String , repoName : String , repoId : Long){
+        val response = gitSpyService.getReleases(owner , repoName)
+        val res = handleReleases(response)
+        if (res is Resource.Success){
+            val releases = res.data
+            if (releases!=null){
+                for(release in releases){
+                    release.repoId= repoId
+                    database.trackRepoDao().addRelease(release)
+                }
+            }
+        }
+
+    }
+
+    private fun handleReleases(response : Response<Releases>) : Resource<Releases>{
+        if (response.body()!=null){
+            return Resource.Success<Releases>(response.body()!!)
+        }
+        return Resource.Error<Releases>(response.message())
+    }
 
 
 

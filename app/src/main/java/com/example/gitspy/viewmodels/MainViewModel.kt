@@ -57,6 +57,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 repository.addCommits(item.owner.login , item.name , item.id)
             }
             job2.join()
+            val job3 = launch(Dispatchers.IO){
+                repository.addReleases(item.owner.login , item.name , item.id)
+            }
+            job3.join()
         }
     }
 

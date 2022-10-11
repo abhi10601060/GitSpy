@@ -5,6 +5,7 @@ import androidx.room.*
 import com.example.gitspy.models.Item
 import com.example.gitspy.models.commits.CommitListItem
 import com.example.gitspy.models.issues.Issue
+import com.example.gitspy.models.releases.ReleaseItem
 
 @Dao
 interface TrackRepoDao {
@@ -26,4 +27,7 @@ interface TrackRepoDao {
 
     @Insert
     suspend fun addCommit(commitListItem: CommitListItem)
+
+    @Insert
+    suspend fun addRelease(release : ReleaseItem)
 }
