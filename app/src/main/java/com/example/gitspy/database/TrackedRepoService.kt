@@ -9,9 +9,10 @@ import androidx.room.TypeConverters
 import com.example.gitspy.models.Item
 import com.example.gitspy.models.commits.CommitListItem
 import com.example.gitspy.models.issues.Issue
+import com.example.gitspy.models.pulls.PullRequestsItem
 import com.example.gitspy.models.releases.ReleaseItem
 
-@Database(entities = [Item::class , Issue::class , CommitListItem::class, ReleaseItem::class] , version = 1)
+@Database(entities = [Item::class , Issue::class , CommitListItem::class, ReleaseItem::class , PullRequestsItem::class] , version = 1)
 //@TypeConverters(Conveters::class)
 abstract class TrackedRepoService : RoomDatabase() {
 

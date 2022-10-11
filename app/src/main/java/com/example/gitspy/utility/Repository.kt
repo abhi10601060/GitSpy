@@ -9,6 +9,7 @@ import com.example.gitspy.models.RepoList
 import com.example.gitspy.models.User
 import com.example.gitspy.models.commits.CommitList
 import com.example.gitspy.models.issues.Issues
+import com.example.gitspy.models.pulls.PullRequests
 import com.example.gitspy.models.releases.Releases
 import com.example.gitspy.network.GitSpyService
 import retrofit2.Response
@@ -126,6 +127,10 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
         return Resource.Error<CommitList>(response.message())
     }
 
+    suspend fun deleteCommits(repoId : Long){
+        database.trackRepoDao().deleteCommits(repoId)
+    }
+
 //  ***************************************************** Handling Commits ****************************************************************
 
     suspend fun addReleases(owner: String , repoName : String , repoId : Long){
@@ -150,6 +155,37 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
         return Resource.Error<Releases>(response.message())
     }
 
+    suspend fun deleteReleases(repoId : Long){
+        database.trackRepoDao().deleteReleases(repoId)
+    }
+
+    //  ***************************************************** Handling PR's ****************************************************************
+
+    suspend fun addPullrequests(owner: String , repoName : String , repoId : Long){
+        val response = gitSpyService.getPullRequests(owner , repoName)
+        val res = handlePulls(response)
+        if (res is Resource.Success){
+            val prs = res.data
+            if (prs!=null){
+                for(pr in prs){
+                    pr.repoId= repoId
+                    database.trackRepoDao().addPullRequest(pr)
+                }
+            }
+        }
+
+    }
+
+    private fun handlePulls(response : Response<PullRequests>) : Resource<PullRequests>{
+        if (response.body()!=null){
+            return Resource.Success<PullRequests>(response.body()!!)
+        }
+        return Resource.Error<PullRequests>(response.message())
+    }
+
+    suspend fun deletePullRequests(repoId : Long){
+        database.trackRepoDao().deletePullRequests(repoId)
+    }
 
 
 }

@@ -39,18 +39,13 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun addToTrack(item: Item){
 
-//        viewModelScope.launch(Dispatchers.IO) {
-//            repository.addToTrack(item)
-//        }
-
         viewModelScope.launch{
             val job = launch(Dispatchers.IO){
                 repository.addToTrack(item)
             }
             job.join()
             val job1 = launch(Dispatchers.IO) {
-                addIssues(item.owner.login , item.name , item.id)
-                // TODO: combine this to repository.addIssues and delete addIssue from VM 
+                repository.addIssues(item.owner.login , item.name , item.id)
             }
             job1.join()
             val job2 = launch(Dispatchers.IO){
@@ -61,6 +56,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 repository.addReleases(item.owner.login , item.name , item.id)
             }
             job3.join()
+            val job4 = launch(Dispatchers.IO){
+                repository.addPullrequests(item.owner.login , item.name , item.id)
+            }
+            job4.join()
         }
     }
 
@@ -85,22 +84,23 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 repository.deleteIssues(item.id)
             }
             job1.join()
+            val job2 = launch(Dispatchers.IO){
+                repository.deleteCommits(item.id)
+            }
+            job2.join()
+            val job3 = launch(Dispatchers.IO){
+                repository.deleteReleases(item.id)
+            }
+            job3.join()
+            val job4 = launch(Dispatchers.IO){
+                repository.deletePullRequests(item.id)
+            }
+            job4.join()
         }
     }
 
 
 //    ***************************************************** Handling Issues ****************************************************************
 
-    fun addIssues(owner : String , repoName : String , repoId : Long){
-        viewModelScope.launch(Dispatchers.IO){
-            repository.addIssues(owner , repoName , repoId)
-        }
-    }
-
-    fun deleteIssues(repoId : Long){
-        viewModelScope.launch(Dispatchers.IO){
-            repository.deleteIssues(repoId)
-        }
-    }
 
 }
