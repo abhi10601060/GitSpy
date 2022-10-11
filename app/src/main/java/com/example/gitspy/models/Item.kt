@@ -15,8 +15,6 @@ data class Item(
     var forks_count: Int,
     var full_name: String,
     var git_commits_url: String,
-    var has_issues: Boolean,
-    var has_pages: Boolean,
     var html_url: String,
     var issue_comment_url: String,
     var issue_events_url: String,
@@ -35,4 +33,5 @@ data class Item(
     var updated_at: String,
     var url: String,
     var watchers_count: Int,
+
 )

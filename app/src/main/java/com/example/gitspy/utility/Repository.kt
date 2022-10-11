@@ -1,11 +1,13 @@
 package com.example.gitspy.utility
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.gitspy.database.TrackedRepoService
 import com.example.gitspy.models.Item
 import com.example.gitspy.models.RepoList
 import com.example.gitspy.models.User
+import com.example.gitspy.models.issues.Issues
 import com.example.gitspy.network.GitSpyService
 import retrofit2.Response
 
@@ -54,6 +56,8 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
 
     suspend fun addToTrack(item : Item){
         database.trackRepoDao().trackRepo(item)
+//        Log.d("ABHI", "addToTrack: $res responce!!!!!!")
+//        Log.d("ABHI", "addToTrack: ${item.toString()} responce!!!!!!")
     }
 
     var trackedRepos : LiveData<List<Item>> = MutableLiveData()
@@ -64,6 +68,30 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
 
     suspend fun deleteRepo(item: Item){
         database.trackRepoDao().deleteRepo(item)
+    }
+
+    suspend fun addIssues(owner : String , repo : String , repoId : Int){
+        val response = gitSpyService.getIssues(owner , repo)
+        val issues = handleIssue(response)
+//        Log.d("ISSUE", "addIssues: ${issues.data.toString()} ")
+        if (issues is Resource.Success){
+            val issueList = issues.data
+//            Log.d("ISSUE", "addIssues: ${issueList.toString()} ")
+            if (issueList != null) {
+                for(issue in issueList){
+                    issue.repoId = repoId
+                    Log.d("ISSUE", "addIssues: ${issue.toString()}")
+                    database.trackRepoDao().addIssue(issue)
+                }
+            }
+        }
+    }
+
+    private fun handleIssue(response : Response<Issues>) : Resource<Issues>{
+        if (response.body()!=null){
+            return Resource.Success<Issues>(response.body()!!)
+        }
+        return Resource.Error<Issues>(response.message())
     }
 
 }

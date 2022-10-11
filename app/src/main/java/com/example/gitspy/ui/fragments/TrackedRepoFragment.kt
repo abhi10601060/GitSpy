@@ -44,8 +44,7 @@ class TrackedRepoFragment :  Fragment(R.layout.faragment_tracked_repo) {
                     dialog , i -> viewModel.deleteRepo(item = it)
                 })
                 .setNegativeButton("No", DialogInterface.OnClickListener { dialogInterface, i ->  } )
-                .create().show()
-
+                .create().show() 
         }
 
     }
