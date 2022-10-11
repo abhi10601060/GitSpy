@@ -55,6 +55,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
 //    ***************************************************** Handling Tracking ****************************************************************
 
     suspend fun addToTrack(item : Item){
+        Log.d("ABHI", "addToTrack: Runned")
         database.trackRepoDao().trackRepo(item)
 //        Log.d("ABHI", "addToTrack: $res responce!!!!!!")
 //        Log.d("ABHI", "addToTrack: ${item.toString()} responce!!!!!!")
@@ -70,7 +71,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
         database.trackRepoDao().deleteRepo(item)
     }
 
-    suspend fun addIssues(owner : String , repo : String , repoId : Int){
+    suspend fun addIssues(owner : String , repo : String , repoId : Long){
         val response = gitSpyService.getIssues(owner , repo)
         val issues = handleIssue(response)
 //        Log.d("ISSUE", "addIssues: ${issues.data.toString()} ")

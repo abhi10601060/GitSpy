@@ -1,11 +1,5 @@
 package com.example.gitspy.database
 
-import android.text.TextUtils
-import androidx.room.TypeConverter
-import com.example.gitspy.models.License
-import com.example.gitspy.models.Owner
-import com.google.gson.Gson
-
 //class Conveters {
 //
 //    @TypeConverter

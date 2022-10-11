@@ -64,6 +64,7 @@ class RepositoryFragment : Fragment(R.layout.fragment_repository) {
         }
 
         adapter.setOnTrackClickListener {
+            Log.d("ABHI", "onViewCreated: ${it.toString()}")
             viewModel.addToTrack(it)
         }
 

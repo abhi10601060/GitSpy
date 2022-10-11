@@ -39,20 +39,20 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun addToTrack(item: Item){
 
-        viewModelScope.launch(Dispatchers.IO) {
-            repository.addToTrack(item)
-        }
-
-//        viewModelScope.launch{
-//            val job = launch(Dispatchers.IO){
-//                repository.addToTrack(item)
-//            }
-//            job.join()
-//            val job1 = launch(Dispatchers.IO) {
-//                addIssues(item.owner.login , item.name , item.id)
-//            }
-//            job1.join()
+//        viewModelScope.launch(Dispatchers.IO) {
+//            repository.addToTrack(item)
 //        }
+
+        viewModelScope.launch{
+            val job = launch(Dispatchers.IO){
+                repository.addToTrack(item)
+            }
+            job.join()
+            val job1 = launch(Dispatchers.IO) {
+                addIssues(item.owner.login , item.name , item.id)
+            }
+            job1.join()
+        }
     }
 
     val trackedRepos : LiveData<List<Item>>
@@ -75,7 +75,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
 //    ***************************************************** Handling Issues ****************************************************************
 
-    fun addIssues(owner : String , repoName : String , repoId : Int){
+    fun addIssues(owner : String , repoName : String , repoId : Long){
         viewModelScope.launch(Dispatchers.IO){
             repository.addIssues(owner , repoName , repoId)
         }
