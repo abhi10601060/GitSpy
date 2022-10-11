@@ -71,13 +71,14 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
         database.trackRepoDao().deleteRepo(item)
     }
 
+
+    //  ***************************************************** Handling Issues ****************************************************************
+
     suspend fun addIssues(owner : String , repo : String , repoId : Long){
         val response = gitSpyService.getIssues(owner , repo)
         val issues = handleIssue(response)
-//        Log.d("ISSUE", "addIssues: ${issues.data.toString()} ")
         if (issues is Resource.Success){
             val issueList = issues.data
-//            Log.d("ISSUE", "addIssues: ${issueList.toString()} ")
             if (issueList != null) {
                 for(issue in issueList){
                     issue.repoId = repoId
@@ -93,6 +94,10 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             return Resource.Success<Issues>(response.body()!!)
         }
         return Resource.Error<Issues>(response.message())
+    }
+
+    suspend fun deleteIssues(repoId :Long){
+        database.trackRepoDao().deleteIssues(repoId)
     }
 
 }

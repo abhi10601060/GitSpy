@@ -19,4 +19,7 @@ interface TrackRepoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addIssue(issue: Issue)
+
+    @Query("delete from issues where repoId = :repoId")
+    suspend fun deleteIssues(repoId : Long)
 }

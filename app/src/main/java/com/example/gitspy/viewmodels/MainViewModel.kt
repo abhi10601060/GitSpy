@@ -68,7 +68,14 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun deleteRepo(item: Item){
         viewModelScope.launch {
-            repository.deleteRepo(item)
+            val job = viewModelScope.launch(Dispatchers.IO) {
+                repository.deleteRepo(item)
+            }
+            job.join()
+            val job1 = viewModelScope.launch(Dispatchers.IO){
+                repository.deleteIssues(item.id)
+            }
+            job1.join()
         }
     }
 
@@ -78,6 +85,12 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun addIssues(owner : String , repoName : String , repoId : Long){
         viewModelScope.launch(Dispatchers.IO){
             repository.addIssues(owner , repoName , repoId)
+        }
+    }
+
+    fun deleteIssues(repoId : Long){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.deleteIssues(repoId)
         }
     }
 
