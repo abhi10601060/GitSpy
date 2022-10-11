@@ -7,6 +7,7 @@ import com.example.gitspy.database.TrackedRepoService
 import com.example.gitspy.models.Item
 import com.example.gitspy.models.RepoList
 import com.example.gitspy.models.User
+import com.example.gitspy.models.commits.CommitList
 import com.example.gitspy.models.issues.Issues
 import com.example.gitspy.network.GitSpyService
 import retrofit2.Response
@@ -99,5 +100,32 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
     suspend fun deleteIssues(repoId :Long){
         database.trackRepoDao().deleteIssues(repoId)
     }
+
+
+    //  ***************************************************** Handling Commits ****************************************************************
+
+    suspend fun addCommits(owner: String , repoName : String , repoId : Long){
+        val response = gitSpyService.getCommits(owner , repoName)
+        val commits = handleCommits(response)
+        if (commits is Resource.Success){
+            if (commits.data!=null){
+                for(commit in commits.data){
+                    commit.repoId= repoId
+                    database.trackRepoDao().addCommit(commit)
+                }
+            }
+
+        }
+    }
+
+    private fun handleCommits(response : Response<CommitList>) : Resource<CommitList>{
+        if (response.body()!=null){
+            return Resource.Success<CommitList>(response.body()!!)
+        }
+        return Resource.Error<CommitList>(response.message())
+    }
+
+
+
 
 }
