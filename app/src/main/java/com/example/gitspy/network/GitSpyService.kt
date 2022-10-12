@@ -4,6 +4,7 @@ import com.example.gitspy.models.RepoList
 import com.example.gitspy.models.User
 import com.example.gitspy.models.commits.CommitList
 import com.example.gitspy.models.issues.Issues
+import com.example.gitspy.models.issues_events.IssueEvents
 import com.example.gitspy.models.pulls.PullRequests
 import com.example.gitspy.models.releases.Releases
 import retrofit2.Response
@@ -29,4 +30,7 @@ interface GitSpyService {
 
     @GET("/repos/{owner}/{repoName}/pulls")
     suspend fun getPullRequests(@Path("owner") owner: String , @Path("repoName") repoName: String) : Response<PullRequests>
+
+    @GET("/repos/{owner}/{repoName}/issues/events")
+    suspend fun getIssueEvents(@Path("owner") owner: String , @Path("repoName") repoName: String) : Response<IssueEvents>
 }

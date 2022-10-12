@@ -9,6 +9,7 @@ import com.example.gitspy.models.RepoList
 import com.example.gitspy.models.User
 import com.example.gitspy.models.commits.CommitList
 import com.example.gitspy.models.issues.Issues
+import com.example.gitspy.models.issues_events.IssueEvents
 import com.example.gitspy.models.pulls.PullRequests
 import com.example.gitspy.models.releases.Releases
 import com.example.gitspy.network.GitSpyService
@@ -188,4 +189,35 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
     }
 
 
+    //  ***************************************************** Handling Issues Events ****************************************************************
+
+
+    suspend fun addIssueEvents(owner: String , repoName : String , repoId : Long){
+        val response = gitSpyService.getIssueEvents(owner , repoName)
+        val res = handleIssueEvents(response)
+        if (res is Resource.Success){
+            val issueEvents = res.data
+            if (issueEvents!=null){
+                for(issueEvent in issueEvents){
+                    issueEvent.repoId= repoId
+                    val ret = database.trackRepoDao().addIssueEvent(issueEvent)
+                    Log.d("ABHI", "addIssueEvents: ret value is $ret ")
+                    if (ret != -1L){
+                        database.trackRepoDao().incrementIssueEventCounts(repoId)
+                    }
+                    else{
+                        break
+                    }
+                }
+            }
+        }
+
+    }
+
+    private fun handleIssueEvents(response : Response<IssueEvents>) : Resource<IssueEvents>{
+        if (response.body()!=null){
+            return Resource.Success<IssueEvents>(response.body()!!)
+        }
+        return Resource.Error<IssueEvents>(response.message())
+    }
 }

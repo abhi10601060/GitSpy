@@ -100,7 +100,13 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     }
 
 
-//    ***************************************************** Handling Issues ****************************************************************
+//    ***************************************************** Handling Issues Events ****************************************************************
 
-
+    fun addIssueEvents(repos : List<Item>){
+        viewModelScope.launch(Dispatchers.IO){
+            for(repo in repos){
+                repository.addIssueEvents(repo.owner.login , repo.name , repo.id)
+            }
+        }
+    }
 }

@@ -25,4 +25,10 @@ data class Item(
     var url: String="",
     var watchers_count: Int=0,
 
+    var issue_events_count : Int =0,
+    var commits_count :Int = 0,
+    var releases_count :Int =0,
+    var pull_requests_count : Int =0
+
+
 )

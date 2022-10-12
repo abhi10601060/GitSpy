@@ -5,6 +5,7 @@ import androidx.room.*
 import com.example.gitspy.models.Item
 import com.example.gitspy.models.commits.CommitListItem
 import com.example.gitspy.models.issues.Issue
+import com.example.gitspy.models.issues_events.IssueEventsItem
 import com.example.gitspy.models.pulls.PullRequestsItem
 import com.example.gitspy.models.releases.ReleaseItem
 
@@ -43,4 +44,10 @@ interface TrackRepoDao {
 
     @Query("delete from pull_requests where repoId = :repoId")
     suspend fun deletePullRequests(repoId : Long)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addIssueEvent(issueEventsItem: IssueEventsItem):Long
+
+    @Query("UPDATE repositories set issue_events_count = issue_events_count + 1 where id = :repoId ")
+    suspend fun incrementIssueEventCounts(repoId : Long)
 }
