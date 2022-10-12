@@ -12,25 +12,31 @@ import retrofit2.http.*
 
 interface GitSpyService {
 
+    @Headers("Authorization: Bearer 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")
     @GET("/users/{username}")
     suspend fun getUser(@Path("username") username : String) : Response<User>
 
+    @Headers("Authorization: Bearer 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")
     @GET("/search/repositories")
     suspend fun getRepos(@Query("q") q : String) : Response<RepoList>
 
-
-    @GET("/repos/{owner}/{repoName}/issues")
+    @Headers("Authorization: Bearer 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")
+    @GET("/repos/{owner}/{repoName}/issues?per_page=100")
     suspend fun getIssues(@Path("owner") owner: String , @Path("repoName") repoName : String) : Response<Issues>
 
-    @GET("/repos/{owner}/{repoName}/commits")
+    @Headers("Authorization: Bearer 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")
+    @GET("/repos/{owner}/{repoName}/commits?per_page=100")
     suspend fun getCommits(@Path("owner") owner: String , @Path("repoName") repoName: String) : Response<CommitList>
 
-    @GET("/repos/{owner}/{repoName}/releases")
+    @Headers("Authorization: Bearer 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")
+    @GET("/repos/{owner}/{repoName}/releases?per_page=100")
     suspend fun getReleases(@Path("owner") owner: String , @Path("repoName") repoName: String) : Response<Releases>
 
-    @GET("/repos/{owner}/{repoName}/pulls")
+    @Headers("Authorization: Bearer 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")
+    @GET("/repos/{owner}/{repoName}/pulls?per_page=100")
     suspend fun getPullRequests(@Path("owner") owner: String , @Path("repoName") repoName: String) : Response<PullRequests>
 
-    @GET("/repos/{owner}/{repoName}/issues/events")
+    @Headers("Authorization: Bearer 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")
+    @GET("/repos/{owner}/{repoName}/issues/events?per_page=100")
     suspend fun getIssueEvents(@Path("owner") owner: String , @Path("repoName") repoName: String) : Response<IssueEvents>
 }

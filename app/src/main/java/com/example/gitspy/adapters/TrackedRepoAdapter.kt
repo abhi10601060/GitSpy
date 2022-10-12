@@ -45,6 +45,9 @@ class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, Tracke
             }
         })
         holder.issues.text = repo.issue_events_count.toString()
+        holder.prs.text = repo.pull_requests_count.toString()
+        holder.commits.text = repo.commits_count.toString()
+        holder.releases.text = repo.releases_count.toString()
 
     }
 

@@ -13,7 +13,7 @@ import com.example.gitspy.models.releases.ReleaseItem
 interface TrackRepoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun trackRepo(item: Item)
+    suspend fun trackRepo(item: Item) :Long
 
     @Query("Select * from repositories")
     fun getAllTrackedRepos() : LiveData<List<Item>>
@@ -21,26 +21,26 @@ interface TrackRepoDao {
     @Delete
     suspend fun deleteRepo(item: Item)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addIssue(issue: Issue)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addIssue(issue: Issue):Long
 
     @Query("delete from issues where repoId = :repoId")
     suspend fun deleteIssues(repoId : Long)
 
-    @Insert
-    suspend fun addCommit(commitListItem: CommitListItem)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addCommit(commitListItem: CommitListItem) : Long
 
     @Query("delete from commits where repoId = :repoId")
     suspend fun deleteCommits(repoId : Long)
 
-    @Insert
-    suspend fun addRelease(release : ReleaseItem)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addRelease(release : ReleaseItem):Long
 
     @Query("delete from releases where repoId = :repoId")
     suspend fun deleteReleases(repoId : Long)
 
-    @Insert
-    suspend fun addPullRequest(pr : PullRequestsItem)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addPullRequest(pr : PullRequestsItem):Long
 
     @Query("delete from pull_requests where repoId = :repoId")
     suspend fun deletePullRequests(repoId : Long)
@@ -50,4 +50,13 @@ interface TrackRepoDao {
 
     @Query("UPDATE repositories set issue_events_count = issue_events_count + 1 where id = :repoId ")
     suspend fun incrementIssueEventCounts(repoId : Long)
+
+    @Query("UPDATE repositories set pull_requests_count = pull_requests_count + 1 where id = :repoId ")
+    suspend fun incrementPullRequestsCount(repoId : Long)
+
+    @Query("UPDATE repositories set commits_count = commits_count + 1 where id = :repoId ")
+    suspend fun incrementCommitsCount(repoId : Long)
+
+    @Query("UPDATE repositories set releases_count = releases_count + 1 where id = :repoId ")
+    suspend fun incrementReleasesCount(repoId : Long)
 }

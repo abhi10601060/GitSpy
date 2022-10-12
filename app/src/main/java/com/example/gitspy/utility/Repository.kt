@@ -87,7 +87,13 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
                 for(issue in issueList){
                     issue.repoId = repoId
                     Log.d("ISSUE", "addIssues: ${issue.toString()}")
-                    database.trackRepoDao().addIssue(issue)
+                    val ret = database.trackRepoDao().addIssue(issue)
+                    if (ret != -1L){
+                        database.trackRepoDao().incrementIssueEventCounts(repoId)
+                    }
+                    else{
+                        break
+                    }
                 }
             }
         }
@@ -114,7 +120,13 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             if (commits.data!=null){
                 for(commit in commits.data){
                     commit.repoId= repoId
-                    database.trackRepoDao().addCommit(commit)
+                    val ret = database.trackRepoDao().addCommit(commit)
+                    if (ret != -1L){
+                        database.trackRepoDao().incrementCommitsCount(repoId)
+                    }
+                    else{
+                        break
+                    }
                 }
             }
 
@@ -142,7 +154,13 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             if (releases!=null){
                 for(release in releases){
                     release.repoId= repoId
-                    database.trackRepoDao().addRelease(release)
+                    val ret = database.trackRepoDao().addRelease(release)
+                    if (ret != -1L){
+                        database.trackRepoDao().incrementReleasesCount(repoId)
+                    }
+                    else{
+                        break
+                    }
                 }
             }
         }
@@ -170,7 +188,13 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             if (prs!=null){
                 for(pr in prs){
                     pr.repoId= repoId
-                    database.trackRepoDao().addPullRequest(pr)
+                    val ret = database.trackRepoDao().addPullRequest(pr)
+                    if (ret != -1L){
+                        database.trackRepoDao().incrementPullRequestsCount(repoId)
+                    }
+                    else{
+                        break
+                    }
                 }
             }
         }
