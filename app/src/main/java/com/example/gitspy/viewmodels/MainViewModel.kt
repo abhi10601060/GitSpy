@@ -60,6 +60,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 repository.addPullrequests(item.owner.login , item.name , item.id)
             }
             job4.join()
+            val job5 = launch(Dispatchers.IO){
+                repository.addIssueEvents(item.owner.login , item.name , item.id)
+            }
+            job5.join()
         }
     }
 
@@ -96,17 +100,14 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
                 repository.deletePullRequests(item.id)
             }
             job4.join()
+            val job5 = launch(Dispatchers.IO){
+                repository.deleteIssueEvents(item.id)
+            }
+            job5.join()
         }
     }
 
 
 //    ***************************************************** Handling Issues Events ****************************************************************
 
-    fun addIssueEvents(repos : List<Item>){
-        viewModelScope.launch(Dispatchers.IO){
-            for(repo in repos){
-                repository.addIssueEvents(repo.owner.login , repo.name , repo.id)
-            }
-        }
-    }
 }

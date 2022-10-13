@@ -29,7 +29,6 @@ class TrackedRepoFragment :  Fragment(R.layout.faragment_tracked_repo) {
 
         viewModel.trackedRepos.observe(viewLifecycleOwner , Observer {
             if (it!=null){
-                viewModel.addIssueEvents(it)
                 adapter.submitList(it)
                 trackedRepoRV.adapter = adapter
                 trackedRepoRV.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.VERTICAL,false)

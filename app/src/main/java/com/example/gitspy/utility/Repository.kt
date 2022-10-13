@@ -144,7 +144,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
         database.trackRepoDao().deleteCommits(repoId)
     }
 
-//  ***************************************************** Handling Commits ****************************************************************
+//  ***************************************************** Handling Releases ****************************************************************
 
     suspend fun addReleases(owner: String , repoName : String , repoId : Long){
         val response = gitSpyService.getReleases(owner , repoName)
@@ -244,4 +244,121 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
         }
         return Resource.Error<IssueEvents>(response.message())
     }
+
+    suspend fun deleteIssueEvents(repoId : Long){
+        database.trackRepoDao().deleteIssueEvents(repoId)
+    }
+
+
+    //  ***************************************************** Handling background worker ****************************************************************
+
+    suspend fun addIssuesBackground(owner : String , repo : String , repoId : Long){
+        val response = gitSpyService.getIssues(owner , repo)
+        val issues = handleIssue(response)
+        if (issues is Resource.Success){
+            val issueList = issues.data
+            if (issueList != null) {
+                for(issue in issueList){
+                    issue.repoId = repoId
+                    Log.d("ISSUE", "addIssues: ${issue.toString()}")
+                    val ret = database.trackRepoDao().addIssue(issue)
+                    if (ret != -1L){
+                        database.trackRepoDao().incrementUnseenIssueEventCounts(repoId)
+                    }
+                    else{
+                        break
+                    }
+                }
+            }
+        }
+    }
+
+    suspend fun addIssueEventsBackground(owner: String , repoName : String , repoId : Long){
+        val response = gitSpyService.getIssueEvents(owner , repoName)
+        val res = handleIssueEvents(response)
+        if (res is Resource.Success){
+            val issueEvents = res.data
+            if (issueEvents!=null){
+                for(issueEvent in issueEvents){
+                    issueEvent.repoId= repoId
+                    val ret = database.trackRepoDao().addIssueEvent(issueEvent)
+                    Log.d("ABHI", "addIssueEvents: ret value is $ret ")
+                    if (ret != -1L){
+                        database.trackRepoDao().incrementUnseenIssueEventCounts(repoId)
+                    }
+                    else{
+                        break
+                    }
+                }
+            }
+        }
+
+    }
+
+    suspend fun addCommitsBackground(owner: String , repoName : String , repoId : Long){
+        val response = gitSpyService.getCommits(owner , repoName)
+        val commits = handleCommits(response)
+        if (commits is Resource.Success){
+            if (commits.data!=null){
+                for(commit in commits.data){
+                    commit.repoId= repoId
+                    val ret = database.trackRepoDao().addCommit(commit)
+                    if (ret != -1L){
+                        database.trackRepoDao().incrementUnseenCommitsCount(repoId)
+                    }
+                    else{
+                        break
+                    }
+                }
+            }
+
+        }
+    }
+
+    suspend fun addReleasesBackground(owner: String , repoName : String , repoId : Long){
+        val response = gitSpyService.getReleases(owner , repoName)
+        val res = handleReleases(response)
+        if (res is Resource.Success){
+            val releases = res.data
+            if (releases!=null){
+                for(release in releases){
+                    release.repoId= repoId
+                    val ret = database.trackRepoDao().addRelease(release)
+                    if (ret != -1L){
+                        database.trackRepoDao().incrementUnseenReleasesCount(repoId)
+                    }
+                    else{
+                        break
+                    }
+                }
+            }
+        }
+
+    }
+
+    suspend fun addPullRequestsBackground(owner: String , repoName : String , repoId : Long){
+        val response = gitSpyService.getPullRequests(owner , repoName)
+        val res = handlePulls(response)
+        if (res is Resource.Success){
+            val prs = res.data
+            if (prs!=null){
+                for(pr in prs){
+                    pr.repoId= repoId
+                    val ret = database.trackRepoDao().addPullRequest(pr)
+                    if (ret != -1L){
+                        database.trackRepoDao().incrementUnseenPullRequestsCount(repoId)
+                    }
+                    else{
+                        break
+                    }
+                }
+            }
+        }
+
+    }
+
+    suspend fun getTrackedRepoList() : List<Item>{
+        return database.trackRepoDao().getAllTrackedReposList()
+    }
+
 }

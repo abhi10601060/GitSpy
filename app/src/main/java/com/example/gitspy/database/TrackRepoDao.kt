@@ -48,6 +48,9 @@ interface TrackRepoDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addIssueEvent(issueEventsItem: IssueEventsItem):Long
 
+    @Query("delete from issue_events where repoId= :repoId")
+    suspend fun deleteIssueEvents(repoId : Long)
+
     @Query("UPDATE repositories set issue_events_count = issue_events_count + 1 where id = :repoId ")
     suspend fun incrementIssueEventCounts(repoId : Long)
 
@@ -59,4 +62,21 @@ interface TrackRepoDao {
 
     @Query("UPDATE repositories set releases_count = releases_count + 1 where id = :repoId ")
     suspend fun incrementReleasesCount(repoId : Long)
+
+    @Query("UPDATE repositories set unseen_issue_events_count = unseen_issue_events_count + 1 where id = :repoId ")
+    suspend fun incrementUnseenIssueEventCounts(repoId : Long)
+
+    @Query("UPDATE repositories set unseen_pull_requests_count = unseen_pull_requests_count + 1 where id = :repoId ")
+    suspend fun incrementUnseenPullRequestsCount(repoId : Long)
+
+    @Query("UPDATE repositories set unseen_commits_count = unseen_commits_count + 1 where id = :repoId ")
+    suspend fun incrementUnseenCommitsCount(repoId : Long)
+
+    @Query("UPDATE repositories set unseen_releases_count = unseen_releases_count + 1 where id = :repoId ")
+    suspend fun incrementUnseenReleasesCount(repoId : Long)
+
+    @Query("Select * from repositories")
+    suspend fun getAllTrackedReposList() : List<Item>
+
+
 }

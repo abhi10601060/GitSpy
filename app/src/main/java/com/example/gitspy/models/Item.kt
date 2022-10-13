@@ -28,7 +28,12 @@ data class Item(
     var issue_events_count : Int =0,
     var commits_count :Int = 0,
     var releases_count :Int =0,
-    var pull_requests_count : Int =0
+    var pull_requests_count : Int =0,
+
+    var unseen_issue_events_count : Int =0,
+    var unseen_commits_count :Int = 0,
+    var unseen_releases_count :Int =0,
+    var unseen_pull_requests_count : Int =0
 
 
 )
