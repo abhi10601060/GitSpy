@@ -12,5 +12,6 @@ data class CommitListItem(
     @Embedded(prefix = "commit_")
     val commit: Commit,
     val html_url: String,
-    var repoId : Long = 0
+    var repoId : Long = 0,
+    var repoName : String =""
 )

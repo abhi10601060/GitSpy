@@ -15,5 +15,6 @@ data class IssueEventsItem(
     @Embedded(prefix = "issue_")
     val issue: Issue,
     val url: String,
-    var repoId : Long = 0
+    var repoId : Long = 0,
+    var repoName : String =""
 )

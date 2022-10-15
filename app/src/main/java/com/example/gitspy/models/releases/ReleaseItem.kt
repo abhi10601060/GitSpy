@@ -12,5 +12,6 @@ data class ReleaseItem(
     val id: Int,
     var name: String?="",
     val published_at: String,
-    var repoId : Long = 0
+    var repoId : Long = 0,
+    var repoName : String =""
 )

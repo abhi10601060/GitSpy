@@ -21,5 +21,6 @@ data class Issue(
     var url: String,
     @Embedded(prefix = "IssuesUser_")
     var user: IssuesUser,
-    var repoId:Long=0
+    var repoId:Long=0,
+    var repoName : String = ""
 )

@@ -7,6 +7,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ProgressBar
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -14,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.example.gitspy.R
 import com.example.gitspy.models.User
 import com.example.gitspy.ui.activities.MainActivity
+import com.example.gitspy.utility.CHANNEL_ID
 import com.example.gitspy.utility.Resource
 import com.example.gitspy.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.fragment_user.*
@@ -134,6 +137,4 @@ class UserFragment: Fragment(R.layout.fragment_user) {
         }
 
     }
-
-
 }

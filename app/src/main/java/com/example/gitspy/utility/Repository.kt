@@ -1,21 +1,33 @@
 package com.example.gitspy.utility
 
+import android.app.Notification
+import android.content.Context
 import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.gitspy.R
 import com.example.gitspy.database.TrackedRepoService
 import com.example.gitspy.models.Item
 import com.example.gitspy.models.RepoList
 import com.example.gitspy.models.User
 import com.example.gitspy.models.commits.CommitList
+import com.example.gitspy.models.commits.CommitListItem
+import com.example.gitspy.models.issues.Issue
 import com.example.gitspy.models.issues.Issues
 import com.example.gitspy.models.issues_events.IssueEvents
+import com.example.gitspy.models.issues_events.IssueEventsItem
 import com.example.gitspy.models.pulls.PullRequests
+import com.example.gitspy.models.pulls.PullRequestsItem
+import com.example.gitspy.models.releases.ReleaseItem
 import com.example.gitspy.models.releases.Releases
 import com.example.gitspy.network.GitSpyService
+import com.example.gitspy.ui.activities.MainActivity
+import kotlinx.coroutines.*
 import retrofit2.Response
 
-class Repository( private val gitSpyService: GitSpyService , private val database: TrackedRepoService){
+class Repository( private val gitSpyService: GitSpyService , private val database: TrackedRepoService , private val  context: Context){
 
     private var userLivedata  = MutableLiveData<Resource<User>>()
 
@@ -25,7 +37,13 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
     suspend fun getUser(userName : String){
         userLivedata.postValue(Resource.Loading())
         var response = gitSpyService.getUser(userName)
-        userLivedata.postValue(handleUser(response))
+        val res = handleUser(response)
+        userLivedata.postValue(res)
+        if (res is Resource.Success){
+            CoroutineScope(Dispatchers.Main).launch {
+                res.data?.let { showUserNotification(it) }
+            }
+        }
     }
 
     fun handleUser(response : Response<User>) : Resource<User>{
@@ -34,6 +52,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
         }
         return Resource.Error(response.message())
     }
+
 
 //    ***************************************************** Handling Repos ****************************************************************
 
@@ -78,7 +97,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
 
     //  ***************************************************** Handling Issues ****************************************************************
 
-    suspend fun addIssues(owner : String , repo : String , repoId : Long){
+    suspend fun addIssues(owner : String , repo : String , repoId : Long ){
         val response = gitSpyService.getIssues(owner , repo)
         val issues = handleIssue(response)
         if (issues is Resource.Success){
@@ -86,6 +105,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             if (issueList != null) {
                 for(issue in issueList){
                     issue.repoId = repoId
+                    issue.repoName = repo
                     Log.d("ISSUE", "addIssues: ${issue.toString()}")
                     val ret = database.trackRepoDao().addIssue(issue)
                     if (ret != -1L){
@@ -120,6 +140,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             if (commits.data!=null){
                 for(commit in commits.data){
                     commit.repoId= repoId
+                    commit.repoName = repoName
                     val ret = database.trackRepoDao().addCommit(commit)
                     if (ret != -1L){
                         database.trackRepoDao().incrementCommitsCount(repoId)
@@ -154,6 +175,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             if (releases!=null){
                 for(release in releases){
                     release.repoId= repoId
+                    release.repoName = repoName
                     val ret = database.trackRepoDao().addRelease(release)
                     if (ret != -1L){
                         database.trackRepoDao().incrementReleasesCount(repoId)
@@ -188,6 +210,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             if (prs!=null){
                 for(pr in prs){
                     pr.repoId= repoId
+                    pr.repoName = repoName
                     val ret = database.trackRepoDao().addPullRequest(pr)
                     if (ret != -1L){
                         database.trackRepoDao().incrementPullRequestsCount(repoId)
@@ -224,6 +247,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             if (issueEvents!=null){
                 for(issueEvent in issueEvents){
                     issueEvent.repoId= repoId
+                    issueEvent.repoName = repoName
                     val ret = database.trackRepoDao().addIssueEvent(issueEvent)
                     Log.d("ABHI", "addIssueEvents: ret value is $ret ")
                     if (ret != -1L){
@@ -260,10 +284,16 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             if (issueList != null) {
                 for(issue in issueList){
                     issue.repoId = repoId
+                    issue.repoName = repo
                     Log.d("ISSUE", "addIssues: ${issue.toString()}")
                     val ret = database.trackRepoDao().addIssue(issue)
+                    Log.d("ABHI", "addIssuesBackground: this is ret $ret")
                     if (ret != -1L){
+                        Log.d("ABHI", "addIssuesBackground:  isuue added in background")
                         database.trackRepoDao().incrementUnseenIssueEventCounts(repoId)
+                        CoroutineScope(Dispatchers.Main).launch{
+                            showIssueNotification(issue)
+                        }
                     }
                     else{
                         break
@@ -281,10 +311,15 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             if (issueEvents!=null){
                 for(issueEvent in issueEvents){
                     issueEvent.repoId= repoId
+                    issueEvent.repoName = repoName
                     val ret = database.trackRepoDao().addIssueEvent(issueEvent)
+                    Log.d("ABHI", "addIssueEventsBackground: ${issueEvent.toString()}")
                     Log.d("ABHI", "addIssueEvents: ret value is $ret ")
                     if (ret != -1L){
                         database.trackRepoDao().incrementUnseenIssueEventCounts(repoId)
+                        CoroutineScope(Dispatchers.Main).launch {
+                            showIssueEventNotification(issueEvent)
+                        }
                     }
                     else{
                         break
@@ -292,7 +327,6 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
                 }
             }
         }
-
     }
 
     suspend fun addCommitsBackground(owner: String , repoName : String , repoId : Long){
@@ -302,9 +336,13 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             if (commits.data!=null){
                 for(commit in commits.data){
                     commit.repoId= repoId
+                    commit.repoName = repoName
                     val ret = database.trackRepoDao().addCommit(commit)
                     if (ret != -1L){
                         database.trackRepoDao().incrementUnseenCommitsCount(repoId)
+                        CoroutineScope(Dispatchers.Main).launch{
+                            showCommitsNotification(commit)
+                        }
                     }
                     else{
                         break
@@ -323,9 +361,13 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             if (releases!=null){
                 for(release in releases){
                     release.repoId= repoId
+                    release.repoName = repoName
                     val ret = database.trackRepoDao().addRelease(release)
                     if (ret != -1L){
                         database.trackRepoDao().incrementUnseenReleasesCount(repoId)
+                        CoroutineScope(Dispatchers.Main).launch{
+                            showReleaseNotification(release)
+                        }
                     }
                     else{
                         break
@@ -344,9 +386,13 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             if (prs!=null){
                 for(pr in prs){
                     pr.repoId= repoId
+                    pr.repoName = repoName
                     val ret = database.trackRepoDao().addPullRequest(pr)
                     if (ret != -1L){
                         database.trackRepoDao().incrementUnseenPullRequestsCount(repoId)
+                        CoroutineScope(Dispatchers.Main).launch{
+                            showPullRequestNotification(pr)
+                        }
                     }
                     else{
                         break
@@ -359,6 +405,95 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
 
     suspend fun getTrackedRepoList() : List<Item>{
         return database.trackRepoDao().getAllTrackedReposList()
+    }
+
+
+    //  ***************************************************** Handling Notifications ****************************************************************
+
+    private var notificationCount = 0
+
+    private fun showUserNotification(body: User) {
+        val notification = NotificationCompat.Builder(context , CHANNEL_ID)
+            .setContentTitle("User Found")
+            .setContentText("${body.login} is found successfully...")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .build()
+
+        val notificationManager = NotificationManagerCompat.from(context)
+        notificationManager.notify(notificationCount++ , notification)
+
+    }
+
+    private fun showIssueNotification(issue : Issue){
+
+        val notification = NotificationCompat.Builder(context , CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("New Issue Created")
+            .setContentText("${issue.title} issue created in ${issue.repoName}.")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .build()
+
+        val notificationManager = NotificationManagerCompat.from(context)
+        notificationManager.notify(notificationCount++ , notification)
+    }
+
+    private fun showCommitsNotification(commit : CommitListItem){
+        val notification = NotificationCompat.Builder(context , CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("New Commit Pushed")
+            .setContentText("${commit.commit.committer.name} commited ${commit.commit.message} on ${commit.repoName}")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .build()
+
+        val notificationManager = NotificationManagerCompat.from(context)
+        notificationManager.notify(notificationCount++ , notification)
+    }
+
+    private fun showReleaseNotification(release : ReleaseItem){
+        val notification = NotificationCompat.Builder(context , CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("New Release")
+            .setContentText("${release.repoName} Published ${release.name}")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .build()
+
+        val notificationManager = NotificationManagerCompat.from(context)
+        notificationManager.notify(notificationCount++ , notification)
+    }
+
+    private fun showPullRequestNotification(pr : PullRequestsItem){
+        val notification = NotificationCompat.Builder(context , CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("New pull request created")
+            .setContentText("${pr.title} : pull request created on ${pr.repoName} ")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .build()
+
+        val notificationManager = NotificationManagerCompat.from(context)
+        notificationManager.notify(notificationCount++ , notification)
+    }
+
+    private fun showIssueEventNotification(issueEvent: IssueEventsItem){
+        var text = "${issueEvent.repoName} : ${issueEvent.issue.title} is ${issueEvent.event} by ${issueEvent.actor.login}"
+
+        when(issueEvent.event){
+            "labeled" -> text = "${issueEvent.repoName} : ${issueEvent.issue.title} is labeled by ${issueEvent.actor.login}."
+            "closed" ->  text = "${issueEvent.repoName} : ${issueEvent.issue.title} is closed by ${issueEvent.actor.login}"
+            "renamed" -> text = "${issueEvent.repoName} : ${issueEvent.issue.title} is renamed by ${issueEvent.actor.login}."
+            "referenced" -> text = "${issueEvent.repoName} : ${issueEvent.issue.title} is referenced by ${issueEvent.actor.login}."
+            "merged" -> text = "${issueEvent.repoName} : ${issueEvent.issue.title} is merged by ${issueEvent.actor.login}."
+        }
+
+        val notification = NotificationCompat.Builder(context , CHANNEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle("Issue Updated")
+            .setContentText(text)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .build()
+
+        val notificationManager = NotificationManagerCompat.from(context)
+        notificationManager.notify(notificationCount++ , notification)
     }
 
 }

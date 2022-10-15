@@ -17,5 +17,6 @@ data class PullRequestsItem(
     val state: String?="",
     val title: String?="",
     val updated_at: String?="",
-    var repoId :Long =0
+    var repoId :Long =0,
+    var repoName : String = ""
 )

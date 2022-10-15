@@ -45,7 +45,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
             }
             job.join()
             val job1 = launch(Dispatchers.IO) {
-                repository.addIssues(item.owner.login , item.name , item.id)
+                repository.addIssues(item.owner.login , item.name , item.id )
             }
             job1.join()
             val job2 = launch(Dispatchers.IO){

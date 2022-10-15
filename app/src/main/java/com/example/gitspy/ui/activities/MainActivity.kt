@@ -2,11 +2,15 @@ package com.example.gitspy.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.example.gitspy.R
+import com.example.gitspy.models.User
+import com.example.gitspy.utility.CHANNEL_ID
 import com.example.gitspy.utility.GitSpyApplication
 import com.example.gitspy.viewmodels.MainViewModel
 import com.example.gitspy.viewmodels.MainViewModelFactory
@@ -26,6 +30,5 @@ class MainActivity : AppCompatActivity() {
 
         val repository = (application as GitSpyApplication).repository
         viewModel = ViewModelProvider(this , MainViewModelFactory(repository)).get(MainViewModel::class.java)
-
     }
 }
