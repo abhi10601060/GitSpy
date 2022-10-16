@@ -79,6 +79,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
 
     suspend fun addToTrack(item : Item){
         Log.d("ABHI", "addToTrack: Runned")
+        item.issue_events_count = item.open_issues_count
         database.trackRepoDao().trackRepo(item)
 //        Log.d("ABHI", "addToTrack: $res responce!!!!!!")
 //        Log.d("ABHI", "addToTrack: ${item.toString()} responce!!!!!!")
@@ -291,6 +292,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
                     if (ret != -1L){
                         Log.d("ABHI", "addIssuesBackground:  isuue added in background")
                         database.trackRepoDao().incrementUnseenIssueEventCounts(repoId)
+                        database.trackRepoDao().incrementIssueEventCounts(repoId)
                         CoroutineScope(Dispatchers.Main).launch{
                             showIssueNotification(issue)
                         }
@@ -317,6 +319,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
                     Log.d("ABHI", "addIssueEvents: ret value is $ret ")
                     if (ret != -1L){
                         database.trackRepoDao().incrementUnseenIssueEventCounts(repoId)
+                        database.trackRepoDao().incrementIssueEventCounts(repoId)
                         CoroutineScope(Dispatchers.Main).launch {
                             showIssueEventNotification(issueEvent)
                         }
@@ -340,6 +343,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
                     val ret = database.trackRepoDao().addCommit(commit)
                     if (ret != -1L){
                         database.trackRepoDao().incrementUnseenCommitsCount(repoId)
+                        database.trackRepoDao().incrementCommitsCount(repoId)
                         CoroutineScope(Dispatchers.Main).launch{
                             showCommitsNotification(commit)
                         }
@@ -365,6 +369,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
                     val ret = database.trackRepoDao().addRelease(release)
                     if (ret != -1L){
                         database.trackRepoDao().incrementUnseenReleasesCount(repoId)
+                        database.trackRepoDao().incrementReleasesCount(repoId)
                         CoroutineScope(Dispatchers.Main).launch{
                             showReleaseNotification(release)
                         }
@@ -390,6 +395,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
                     val ret = database.trackRepoDao().addPullRequest(pr)
                     if (ret != -1L){
                         database.trackRepoDao().incrementUnseenPullRequestsCount(repoId)
+                        database.trackRepoDao().incrementPullRequestsCount(repoId)
                         CoroutineScope(Dispatchers.Main).launch{
                             showPullRequestNotification(pr)
                         }

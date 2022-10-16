@@ -139,7 +139,35 @@
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/repos_background"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    android:clipToPadding="false"
+                    >
+
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/issuesNotificationCountRL"
+                        android:background="@drawable/notification_count_background"
+                        android:padding="2dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="-10dp"
+                        android:layout_marginRight="-9dp"
+                        android:minWidth="18dp"
+                        >
+
+                        <TextView
+                            android:id="@+id/issueNotificationCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="1"
+                            android:textColor="@color/button"
+                            android:textSize="10dp"
+                            android:textStyle="bold" />
+
+
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/trackedRepoIssuesText"
@@ -175,7 +203,8 @@
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/repos_background"
-                    android:padding="10dp">
+                    android:padding="10dp"
+                    android:clipToPadding="false">
 
                     <TextView
                         android:id="@+id/trackedRepoPRText"
@@ -198,6 +227,29 @@
                         android:textSize="18dp"
                         android:textStyle="bold" />
 
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pullRequestNotificationCountRL"
+                        android:background="@drawable/notification_count_background"
+                        android:padding="2dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="-10dp"
+                        android:layout_marginRight="-9dp"
+                        android:minWidth="18dp"
+                        >
+
+                        <TextView
+                            android:id="@+id/pullRequestNotificationCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10"
+                            android:textColor="@color/button"
+                            android:textSize="10dp"
+                            android:textStyle="bold"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
                 </RelativeLayout>
 
                 <Space
@@ -217,8 +269,7 @@
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1" >
-                </Space>
+                    android:layout_weight="1"></Space>
 
                 <RelativeLayout
                     android:id="@+id/CommitsRL"
@@ -226,14 +277,15 @@
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/PRsRL"
                     android:background="@drawable/repos_background"
+                    android:clipToPadding="false"
                     android:padding="10dp">
 
                     <TextView
                         android:id="@+id/trackedRepoCommitsText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Commit"
                         android:layout_centerHorizontal="true"
+                        android:text="Commit"
                         android:textColor="@color/githubBlue"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -249,27 +301,50 @@
                         android:textSize="18dp"
                         android:textStyle="bold" />
 
+                    <RelativeLayout
+                        android:id="@+id/commitsNotificationCountRL"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="-10dp"
+                        android:layout_marginRight="-9dp"
+                        android:background="@drawable/notification_count_background"
+                        android:padding="2dp"
+                        android:minWidth="18dp">
+
+                        <TextView
+                            android:id="@+id/commitsNotificationCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:text="10"
+                            android:textColor="@color/button"
+                            android:textSize="10dp"
+                            android:textStyle="bold"
+                            />
+                    </RelativeLayout>
+
                 </RelativeLayout>
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1" >
-                </Space>
+                    android:layout_weight="1"></Space>
 
                 <RelativeLayout
                     android:id="@+id/ReleasesRL"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/repos_background"
+                    android:clipToPadding="false"
                     android:padding="10dp">
 
                     <TextView
                         android:id="@+id/trackedRepoReleasesText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Release"
                         android:layout_centerHorizontal="true"
+                        android:text="Release"
                         android:textColor="@color/githubBlue"
                         android:textSize="18dp"
                         android:textStyle="bold" />
@@ -285,18 +360,39 @@
                         android:textSize="18dp"
                         android:textStyle="bold" />
 
+                    <RelativeLayout
+                        android:id="@+id/releasesNotificationCountRL"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="-10dp"
+                        android:layout_marginRight="-9dp"
+                        android:background="@drawable/notification_count_background"
+                        android:padding="2dp"
+                        android:minWidth="18dp">
+
+                        <TextView
+                            android:id="@+id/releasesNotificationCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10"
+                            android:textColor="@color/button"
+                            android:textSize="10dp"
+                            android:textStyle="bold"
+                            android:layout_centerInParent="true"/>
+                    </RelativeLayout>
+
+
                 </RelativeLayout>
 
                 <Space
                     android:layout_width="0dp"
                     android:layout_height="1dp"
-                    android:layout_weight="1" >
-                </Space>
+                    android:layout_weight="1"></Space>
 
             </LinearLayout>
 
         </RelativeLayout>
-
 
         <ImageView
             android:layout_width="wrap_content"
@@ -305,7 +401,6 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="10dp"
             android:id="@+id/trackedRepoCancelBtn"/>
-
 
     </RelativeLayout>
 

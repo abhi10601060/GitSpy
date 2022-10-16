@@ -23,26 +23,26 @@ class BackgroundWorker : BroadcastReceiver() {
                 for(repo in repos){
                     Log.d("ABHI", "doWork: request sent for ${repo.full_name}")
 
-                    val job = launch(Dispatchers.IO){
+////                    val job = launch(Dispatchers.IO){
                         repository.addIssuesBackground(repo.owner.login , repo.name , repo.id)
-                    }
-                    job.join()
-                    val job1 = launch(Dispatchers.IO){
+//                    }
+//                    job.join()
+//                    val job1 = launch(Dispatchers.IO){
                         repository.addIssueEventsBackground(repo.owner.login , repo.name , repo.id)
-                    }
-                    job1.join()
-                    val job2 = launch(Dispatchers.IO){
+//                    }
+//                    job1.join()
+//                    val job2 = launch(Dispatchers.IO){
                         repository.addCommitsBackground(repo.owner.login , repo.name , repo.id)
-                    }
-                    job2.join()
-                    val job3 = launch(Dispatchers.IO){
+//                    }
+//                    job2.join()
+//                    val job3 = launch(Dispatchers.IO){
                         repository.addPullRequestsBackground(repo.owner.login , repo.name , repo.id)
-                    }
-                    job3.join()
-                    val job4 = launch(Dispatchers.IO){
+//                    }
+//                    job3.join()
+//                    val job4 = launch(Dispatchers.IO){
                         repository.addReleasesBackground(repo.owner.login , repo.name , repo.id)
-                    }
-                    job4.join()
+//                    }
+//                    job4.join()
                 }
             }
         }

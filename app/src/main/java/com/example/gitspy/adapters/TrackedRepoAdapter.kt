@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -49,6 +50,34 @@ class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, Tracke
         holder.commits.text = repo.commits_count.toString()
         holder.releases.text = repo.releases_count.toString()
 
+        if(repo.unseen_issue_events_count >0 ){
+            holder.issueCount.text = repo.unseen_issue_events_count.toString()
+        }
+        else{
+            holder.issueCountRL.visibility = View.GONE
+        }
+
+        if(repo.unseen_commits_count >0 ){
+            holder.commitsCount.text = repo.unseen_commits_count.toString()
+        }
+        else{
+            holder.commitsCountRL.visibility = View.GONE
+        }
+
+        if(repo.unseen_pull_requests_count >0 ){
+            holder.prCount.text = repo.unseen_pull_requests_count.toString()
+        }
+        else{
+            holder.prCountRL.visibility = View.GONE
+        }
+
+        if(repo.unseen_releases_count >0 ){
+            holder.releasesCount.text = repo.unseen_releases_count.toString()
+        }
+        else{
+            holder.releasesCountRL.visibility = View.GONE
+        }
+
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -64,6 +93,15 @@ class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, Tracke
         val releases : TextView = itemView.findViewById(R.id.trackedReleases)
         val prs : TextView = itemView.findViewById(R.id.trackedPR)
         val cancel : ImageView = itemView.findViewById(R.id.trackedRepoCancelBtn)
+
+        val issueCountRL : RelativeLayout = itemView.findViewById(R.id.issuesNotificationCountRL)
+        val issueCount : TextView = itemView.findViewById(R.id.issueNotificationCount)
+        val commitsCountRL : RelativeLayout = itemView.findViewById(R.id.commitsNotificationCountRL)
+        val commitsCount : TextView = itemView.findViewById(R.id.commitsNotificationCount)
+        val prCountRL : RelativeLayout = itemView.findViewById(R.id.pullRequestNotificationCountRL)
+        val prCount : TextView = itemView.findViewById(R.id.pullRequestNotificationCount)
+        val releasesCountRL : RelativeLayout = itemView.findViewById(R.id.releasesNotificationCountRL)
+        val releasesCount : TextView = itemView.findViewById(R.id.releasesNotificationCount)
 
     }
 
