@@ -1,12 +1,15 @@
 package com.example.gitspy.utility
 
-import android.app.Notification
 import android.content.Context
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.Glide
 import com.example.gitspy.R
 import com.example.gitspy.database.TrackedRepoService
 import com.example.gitspy.models.Item
@@ -23,9 +26,11 @@ import com.example.gitspy.models.pulls.PullRequestsItem
 import com.example.gitspy.models.releases.ReleaseItem
 import com.example.gitspy.models.releases.Releases
 import com.example.gitspy.network.GitSpyService
-import com.example.gitspy.ui.activities.MainActivity
 import kotlinx.coroutines.*
 import retrofit2.Response
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
 
 class Repository( private val gitSpyService: GitSpyService , private val database: TrackedRepoService , private val  context: Context){
 
@@ -419,9 +424,12 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
     private var notificationCount = 0
 
     private fun showUserNotification(body: User) {
+
         val notification = NotificationCompat.Builder(context , CHANNEL_ID)
             .setContentTitle("User Found")
             .setContentText("${body.login} is found successfully...")
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText(body.bio))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .build()
@@ -437,6 +445,8 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("New Issue Created")
             .setContentText("${issue.title} issue created in ${issue.repoName}.")
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText("${issue.title} issue created in ${issue.repoName}."))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
@@ -449,6 +459,8 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("New Commit Pushed")
             .setContentText("${commit.commit.committer.name} commited ${commit.commit.message} on ${commit.repoName}")
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText("${commit.commit.committer.name} commited ${commit.commit.message} on ${commit.repoName}"))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
@@ -461,6 +473,8 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("New Release")
             .setContentText("${release.repoName} Published ${release.name}")
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText("${release.repoName} Published ${release.name}"))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
@@ -472,7 +486,9 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
         val notification = NotificationCompat.Builder(context , CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("New pull request created")
-            .setContentText("${pr.title} : pull request created on ${pr.repoName} ")
+            .setContentText("${pr.title} : pull request created on ${pr.repoName}.")
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText("${pr.title} : pull request created on ${pr.repoName}."))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
@@ -495,6 +511,8 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setContentTitle("Issue Updated")
             .setContentText(text)
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText(text))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
