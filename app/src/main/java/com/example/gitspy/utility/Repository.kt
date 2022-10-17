@@ -1,6 +1,8 @@
 package com.example.gitspy.utility
 
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -9,6 +11,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavDeepLinkBuilder
 import com.bumptech.glide.Glide
 import com.example.gitspy.R
 import com.example.gitspy.database.TrackedRepoService
@@ -26,6 +29,7 @@ import com.example.gitspy.models.pulls.PullRequestsItem
 import com.example.gitspy.models.releases.ReleaseItem
 import com.example.gitspy.models.releases.Releases
 import com.example.gitspy.network.GitSpyService
+import com.example.gitspy.ui.activities.MainActivity
 import kotlinx.coroutines.*
 import retrofit2.Response
 import java.io.InputStream
@@ -209,6 +213,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
     //  ***************************************************** Handling PR's ****************************************************************
 
     suspend fun addPullrequests(owner: String , repoName : String , repoId : Long){
+
         val response = gitSpyService.getPullRequests(owner , repoName)
         val res = handlePulls(response)
         if (res is Resource.Success){
@@ -423,6 +428,14 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
 
     private var notificationCount = 0
 
+    private fun getTrackedRepoPendingIntent() : PendingIntent {
+        val pendingIntent =NavDeepLinkBuilder(context)
+            .setComponentName(MainActivity::class.java)
+            .setGraph(R.navigation.main_nav_graph)
+            .setDestination(R.id.trackedRepoFragment)
+            .createPendingIntent()
+        return pendingIntent
+    }
     private fun showUserNotification(body: User) {
 
         val notification = NotificationCompat.Builder(context , CHANNEL_ID)
@@ -432,6 +445,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
                 .bigText(body.bio))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentIntent(getTrackedRepoPendingIntent())
             .build()
 
         val notificationManager = NotificationManagerCompat.from(context)
@@ -448,6 +462,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             .setStyle(NotificationCompat.BigTextStyle()
                 .bigText("${issue.title} issue created in ${issue.repoName}."))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(getTrackedRepoPendingIntent())
             .build()
 
         val notificationManager = NotificationManagerCompat.from(context)
@@ -462,6 +477,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             .setStyle(NotificationCompat.BigTextStyle()
                 .bigText("${commit.commit.committer.name} commited ${commit.commit.message} on ${commit.repoName}"))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(getTrackedRepoPendingIntent())
             .build()
 
         val notificationManager = NotificationManagerCompat.from(context)
@@ -476,6 +492,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             .setStyle(NotificationCompat.BigTextStyle()
                 .bigText("${release.repoName} Published ${release.name}"))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(getTrackedRepoPendingIntent())
             .build()
 
         val notificationManager = NotificationManagerCompat.from(context)
@@ -490,6 +507,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             .setStyle(NotificationCompat.BigTextStyle()
                 .bigText("${pr.title} : pull request created on ${pr.repoName}."))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(getTrackedRepoPendingIntent())
             .build()
 
         val notificationManager = NotificationManagerCompat.from(context)
@@ -514,6 +532,7 @@ class Repository( private val gitSpyService: GitSpyService , private val databas
             .setStyle(NotificationCompat.BigTextStyle()
                 .bigText(text))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(getTrackedRepoPendingIntent())
             .build()
 
         val notificationManager = NotificationManagerCompat.from(context)
