@@ -1,6 +1,7 @@
 package com.example.gitspy.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gitspy.R
 import com.example.gitspy.models.Item
+import com.example.gitspy.ui.activities.StatsActivity
 
 class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, TrackedRepoAdapter.ViewHolder>(DiffutilCallback()){
 
@@ -77,8 +79,32 @@ class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, Tracke
         else{
             holder.releasesCountRL.visibility = View.GONE
         }
+        holder.issueRL.setOnClickListener(View.OnClickListener {
+            val intent = Intent(context , StatsActivity::class.java)
+            intent.putExtra("path" , "issues")
+            context.startActivity(intent)
+        })
+
+        holder.commitsRL.setOnClickListener( View.OnClickListener {
+            val intent = Intent(context , StatsActivity::class.java)
+            intent.putExtra("path" , "commits")
+            context.startActivity(intent)
+        })
+
+        holder.releasesRL.setOnClickListener( View.OnClickListener {
+            val intent = Intent(context , StatsActivity::class.java)
+            intent.putExtra("path" , "releases")
+            context.startActivity(intent)
+        })
+
+        holder.pullRequestsRL.setOnClickListener( View.OnClickListener {
+            val intent = Intent(context , StatsActivity::class.java)
+            intent.putExtra("path" , "prs")
+            context.startActivity(intent)
+        })
 
     }
+
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val logo : ImageView = itemView.findViewById(R.id.trackedRepoLogoImg)
@@ -103,6 +129,10 @@ class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, Tracke
         val releasesCountRL : RelativeLayout = itemView.findViewById(R.id.releasesNotificationCountRL)
         val releasesCount : TextView = itemView.findViewById(R.id.releasesNotificationCount)
 
+        val issueRL : RelativeLayout = itemView.findViewById(R.id.IssuesRL)
+        val commitsRL : RelativeLayout = itemView.findViewById(R.id.CommitsRL)
+        val pullRequestsRL :RelativeLayout = itemView.findViewById(R.id.PRsRL)
+        val releasesRL :RelativeLayout = itemView.findViewById(R.id.releasesRL)
     }
 
     class DiffutilCallback : DiffUtil.ItemCallback<Item>() {
@@ -121,8 +151,5 @@ class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, Tracke
     fun onCancelClickListener(listener : ((Item) -> Unit)) {
         cancelListener = listener
     }
-
-
-
 
 }

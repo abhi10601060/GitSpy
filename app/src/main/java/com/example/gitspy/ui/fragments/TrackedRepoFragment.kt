@@ -2,6 +2,7 @@ package com.example.gitspy.ui.fragments
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import com.example.gitspy.R
 import com.example.gitspy.adapters.RepoAdapter
 import com.example.gitspy.adapters.TrackedRepoAdapter
 import com.example.gitspy.ui.activities.MainActivity
+import com.example.gitspy.ui.activities.StatsActivity
 import com.example.gitspy.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.faragment_tracked_repo.*
 

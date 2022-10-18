@@ -332,7 +332,7 @@
                     android:layout_weight="1"></Space>
 
                 <RelativeLayout
-                    android:id="@+id/ReleasesRL"
+                    android:id="@+id/releasesRL"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:background="@drawable/repos_background"
