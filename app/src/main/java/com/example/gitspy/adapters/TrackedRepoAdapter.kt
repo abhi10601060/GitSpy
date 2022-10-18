@@ -2,6 +2,7 @@ package com.example.gitspy.adapters
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,27 +80,33 @@ class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, Tracke
         else{
             holder.releasesCountRL.visibility = View.GONE
         }
+
+        val bundle = Bundle()
+        bundle.putLong("repoID" , repo.id)
+        bundle.putString("repoName" , repo.full_name)
+        bundle.putString("path" , "issues")
+
         holder.issueRL.setOnClickListener(View.OnClickListener {
             val intent = Intent(context , StatsActivity::class.java)
-            intent.putExtra("path" , "issues")
+            intent.putExtra("bundle" , bundle)
             context.startActivity(intent)
         })
 
         holder.commitsRL.setOnClickListener( View.OnClickListener {
             val intent = Intent(context , StatsActivity::class.java)
-            intent.putExtra("path" , "commits")
+            intent.putExtra("bundle" , bundle)
             context.startActivity(intent)
         })
 
         holder.releasesRL.setOnClickListener( View.OnClickListener {
             val intent = Intent(context , StatsActivity::class.java)
-            intent.putExtra("path" , "releases")
+            intent.putExtra("bundle" , bundle)
             context.startActivity(intent)
         })
 
         holder.pullRequestsRL.setOnClickListener( View.OnClickListener {
             val intent = Intent(context , StatsActivity::class.java)
-            intent.putExtra("path" , "prs")
+            intent.putExtra("bundle" , bundle)
             context.startActivity(intent)
         })
 

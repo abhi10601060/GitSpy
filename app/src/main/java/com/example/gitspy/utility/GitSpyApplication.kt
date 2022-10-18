@@ -19,6 +19,7 @@ const val CHANNEL_NAME = "Gitspy_Channel"
 
 class GitSpyApplication : Application() {
     lateinit var repository: Repository
+    lateinit var statsRepository : StatsRepository
 
 
     override fun onCreate() {
@@ -41,6 +42,7 @@ class GitSpyApplication : Application() {
         val gitSpyService = RetroInstance.getInstance().create(GitSpyService::class.java)
         val database = TrackedRepoService.getInstance(this)
         repository = Repository(gitSpyService , database , baseContext)
+        statsRepository = StatsRepository(database , gitSpyService)
     }
 
     fun createNotificationChannel(){

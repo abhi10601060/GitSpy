@@ -78,5 +78,9 @@ interface TrackRepoDao {
     @Query("Select * from repositories")
     suspend fun getAllTrackedReposList() : List<Item>
 
+//********************************************************* Stats Repository *************************************************************
+
+    @Query("select * from issues where repoId = :id ")
+    fun getSavedIssues(id : Long) : LiveData<List<Issue>>
 
 }
