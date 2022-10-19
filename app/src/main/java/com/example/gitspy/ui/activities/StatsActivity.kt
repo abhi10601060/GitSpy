@@ -2,6 +2,7 @@ package com.example.gitspy.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import com.example.gitspy.R
@@ -37,6 +38,10 @@ class StatsActivity : AppCompatActivity() {
         when(path){
             "issues" ->{
                 bundle.getLong("repoID").let { viewModel.getAllIssues(it) }
+                val ownerName = bundle.getString("owner" , "default")
+                val repoName = bundle.getString("repoName" , "default")
+                Log.d("ABHI", "handleFragments: $ownerName , $repoName")
+                viewModel.getOpenIssues(ownerName,repoName)
                 val issueFragment = IssueFragment()
                 issueFragment.arguments = bundle
                 fragmentManager.beginTransaction().replace(R.id.parentFL ,issueFragment).commit()

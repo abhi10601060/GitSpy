@@ -10,7 +10,7 @@ import com.example.gitspy.models.releases.Releases
 import retrofit2.Response
 import retrofit2.http.*
 
-const val PUBLIC_ACCESS_TOKEN = "Bearer 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 "
+const val PUBLIC_ACCESS_TOKEN = "Bearer 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"
 interface GitSpyService {
 
     @Headers("Authorization: $PUBLIC_ACCESS_TOKEN")

@@ -25,10 +25,10 @@ class StatsViewModel(private val repository: StatsRepository) : ViewModel(){
     val OpenIssues : LiveData<Resource<Issues>>
     get() = repository.OpenIssues
 
-    fun getOpenIssues(fullName :String){
+    fun getOpenIssues(owner :String , repoName : String){
         viewModelScope.launch(Dispatchers.IO){
             Log.d("ABHI", "getOpenIssues: called")
-            repository.getOpenIssues(fullName)
+            repository.getOpenIssues(owner , repoName)
 
         }
     }

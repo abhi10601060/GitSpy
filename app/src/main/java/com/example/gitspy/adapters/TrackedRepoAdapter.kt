@@ -83,7 +83,8 @@ class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, Tracke
 
         val bundle = Bundle()
         bundle.putLong("repoID" , repo.id)
-        bundle.putString("repoName" , repo.full_name)
+        bundle.putString("repoName" , repo.name)
+        bundle.putString("owner" , repo.owner.login)
 
         holder.issueRL.setOnClickListener(View.OnClickListener {
             bundle.putString("path" , "issues")

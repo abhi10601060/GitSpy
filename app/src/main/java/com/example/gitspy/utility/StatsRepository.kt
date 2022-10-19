@@ -22,9 +22,9 @@ class StatsRepository(private val database : TrackedRepoService , private val ap
     val OpenIssues : LiveData<Resource<Issues>>
     get() = openIssuesLiveData
 
-    suspend fun getOpenIssues(fullName: String){
+    suspend fun getOpenIssues(owner: String , repoName : String){
         openIssuesLiveData.postValue(Resource.Loading<Issues>())
-        val response = api.getOpenIssues(fullName)
+        val response = api.getIssues(owner , repoName)
         openIssuesLiveData.postValue(handleIssue(response))
         Log.d("ABHI", "repo getOpenIssues: called ")
     }
