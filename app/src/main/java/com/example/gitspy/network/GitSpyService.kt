@@ -45,11 +45,7 @@ interface GitSpyService {
 
 
     @Headers("Authorization: $PUBLIC_ACCESS_TOKEN")
-    @GET("/repos/{full_name}/issues?per_page=100")
-    suspend fun getOpenIssues(@Path("full_name") fullName: String) : Response<Issues>
-
-    @Headers("Authorization: $PUBLIC_ACCESS_TOKEN")
-    @GET("/repos/{full_name}/issues?state=closed&per_page=100")
-    suspend fun getClosedIssues(@Path("full_name") fullName: String) : Response<Issues>
+    @GET("/repos/{owner}/{repoName}/issues?state=closed")
+    suspend fun getClosedIssues(@Path("owner") owner: String , @Path("repoName") repoName : String) : Response<Issues>
 
 }

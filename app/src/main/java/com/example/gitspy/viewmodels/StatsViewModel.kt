@@ -33,4 +33,14 @@ class StatsViewModel(private val repository: StatsRepository) : ViewModel(){
         }
     }
 
+    val ClosedIssues : LiveData<Resource<Issues>>
+    get() = repository.ClosedIssues
+
+    fun getClosedIssues(owner :String , repoName : String){
+        viewModelScope.launch(Dispatchers.IO){
+            Log.d("ABHI", "getClosed : called")
+            repository.getClosedIssues(owner , repoName)
+
+        }
+    }
 }

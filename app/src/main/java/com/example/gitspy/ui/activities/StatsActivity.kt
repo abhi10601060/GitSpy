@@ -42,6 +42,8 @@ class StatsActivity : AppCompatActivity() {
                 val repoName = bundle.getString("repoName" , "default")
                 Log.d("ABHI", "handleFragments: $ownerName , $repoName")
                 viewModel.getOpenIssues(ownerName,repoName)
+                viewModel.getClosedIssues(ownerName,repoName)
+
                 val issueFragment = IssueFragment()
                 issueFragment.arguments = bundle
                 fragmentManager.beginTransaction().replace(R.id.parentFL ,issueFragment).commit()

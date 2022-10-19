@@ -37,4 +37,17 @@ class StatsRepository(private val database : TrackedRepoService , private val ap
         return Resource.Error<Issues>(response.message())
     }
 
+    private var closedIssuesLiveData = MutableLiveData<Resource<Issues>>()
+
+    val ClosedIssues : LiveData<Resource<Issues>>
+    get() = closedIssuesLiveData
+
+    suspend fun getClosedIssues(owner: String , repoName : String){
+        closedIssuesLiveData.postValue(Resource.Loading<Issues>())
+        val response = api.getClosedIssues(owner , repoName)
+        closedIssuesLiveData.postValue(handleIssue(response))
+        Log.d("ABHI", "repo getClosed : called ")
+    }
+
+
 }
