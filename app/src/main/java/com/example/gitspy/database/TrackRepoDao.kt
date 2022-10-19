@@ -83,4 +83,9 @@ interface TrackRepoDao {
     @Query("select * from issues where repoId = :id ")
     fun getSavedIssues(id : Long) : LiveData<List<Issue>>
 
+
+    @Query("select * from pull_requests where repoId = :id ")
+    fun getSavedPrs(id : Long) : LiveData<List<PullRequestsItem>>
+
+
 }

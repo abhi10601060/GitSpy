@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.gitspy.database.TrackedRepoService
 import com.example.gitspy.models.issues.Issue
 import com.example.gitspy.models.issues.Issues
+import com.example.gitspy.models.pulls.PullRequestsItem
 import com.example.gitspy.network.GitSpyService
 import retrofit2.Response
 
@@ -47,6 +48,15 @@ class StatsRepository(private val database : TrackedRepoService , private val ap
         val response = api.getClosedIssues(owner , repoName)
         closedIssuesLiveData.postValue(handleIssue(response))
         Log.d("ABHI", "repo getClosed : called ")
+    }
+
+
+    //******************************************************************** Pull Requests ****************************************************
+
+    var prNotifications : LiveData<List<PullRequestsItem>> = MutableLiveData()
+
+    suspend fun getAllSavedPrs(repoId : Long){
+        prNotifications = database.trackRepoDao().getSavedPrs(repoId)
     }
 
 

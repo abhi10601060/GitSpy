@@ -59,6 +59,8 @@ class StatsActivity : AppCompatActivity() {
                 fragmentManager.beginTransaction().replace(R.id.parentFL , releasesFragment).commit()
             }
             "prs" ->{
+                bundle.getLong("repoID").let { viewModel.getAllSavedPrNotifications(it) }
+
                 val prsFragment = PullRequestsFragment()
                 prsFragment.arguments = bundle
                 fragmentManager.beginTransaction().replace(R.id.parentFL , prsFragment).commit()
