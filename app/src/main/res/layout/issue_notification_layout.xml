@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -11,22 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5dp"
-        android:id="@+id/issue_parent_RL">
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/openLogoImg"
-            android:src="@drawable/ic_outline_open"/>
+        android:id="@+id/issueNotificationParentRL">
 
         <TextView
-            android:id="@+id/issueNotification_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_toRightOf="@+id/openLogoImg"
-            android:text="gfhjf fjkfh jfhf jkfhf jfjkfhajkfhj hfahf jhfjkf hfjhfh fjkfj fhnjkhfhj fhj3uheunhfuianjfuhenmnfu jiaf :"
-            android:textColor="@color/white" />
+            android:text="Issue Created"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:id="@+id/txt_issueNotificationCreated"
+            android:textColor="@color/white"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -34,8 +28,17 @@
             android:layout_alignParentEnd="true"
             android:text="10:55 - 12, Oct 2020"
             android:textStyle="bold"
-            android:id="@+id/issueNotificationCreatedTime"
-            android:layout_below="@+id/issueNotification_desc"/>
+            android:id="@+id/issueNotificationCreatedTime"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_issueNotificationCreated"
+            android:text="gfhjf fjkfh jfhf jkfhf jfjkfhajkfhj hfahf jhfjkf hfjhfh fjkfj fhnjkhfhj fhj3uheunhfuianjfuhenmnfu jiaf :"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white"
+            android:id="@+id/issueNotification_desc"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -44,6 +47,7 @@
             android:text="Creator : Abhi Velekar"
             android:textStyle="bold"
             android:layout_marginTop="3dp"
+            android:layout_alignParentEnd="true"
             android:id="@+id/issue_creator"/>
 
 

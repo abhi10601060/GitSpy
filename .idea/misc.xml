@@ -10,6 +10,7 @@
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/drawable/ic_baseline_website.xml" value="0.1605" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/drawable/ic_error_background_background.xml" value="0.1665" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/drawable/ic_icon_background.xml" value="0.1605" />
+        <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/drawable/ic_outline_cancel.xml" value="0.1605" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/drawable/ic_outline_location_on_24.xml" value="0.1665" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/drawable/ic_twitter_117.xml" value="0.1665" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/drawable/notification_count_background.xml" value="0.1605" />
@@ -19,14 +20,18 @@
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/activity_stats.xml" value="0.25" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/faragment_tracked_repo.xml" value="0.25" />
+        <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/fragment_closed_issue.xml" value="0.25" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/fragment_commits.xml" value="0.25" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/fragment_github.xml" value="0.25" />
+        <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/fragment_issue_notifications.xml" value="0.25" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/fragment_issues.xml" value="0.25" />
+        <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/fragment_open_issue.xml" value="0.25" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/fragment_pull_requests.xml" value="0.25" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/fragment_releases.xml" value="0.25" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/fragment_repository.xml" value="0.25" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/fragment_user.xml" value="0.25" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/issue_layout.xml" value="0.25" />
+        <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/issue_notification_layout.xml" value="0.25" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/repository_layout.xml" value="0.25" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/layout/tracked_repos_layout.xml" value="0.25" />
         <entry key="..\:/ANDROID DEVELOPEMENT/MVVM/GitSpy/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.25" />

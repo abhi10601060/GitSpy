@@ -84,27 +84,30 @@ class TrackedRepoAdapter(private val context: Context): ListAdapter<Item, Tracke
         val bundle = Bundle()
         bundle.putLong("repoID" , repo.id)
         bundle.putString("repoName" , repo.full_name)
-        bundle.putString("path" , "issues")
 
         holder.issueRL.setOnClickListener(View.OnClickListener {
+            bundle.putString("path" , "issues")
             val intent = Intent(context , StatsActivity::class.java)
             intent.putExtra("bundle" , bundle)
             context.startActivity(intent)
         })
 
         holder.commitsRL.setOnClickListener( View.OnClickListener {
+            bundle.putString("path" , "commits")
             val intent = Intent(context , StatsActivity::class.java)
             intent.putExtra("bundle" , bundle)
             context.startActivity(intent)
         })
 
         holder.releasesRL.setOnClickListener( View.OnClickListener {
+            bundle.putString("path" , "releases")
             val intent = Intent(context , StatsActivity::class.java)
             intent.putExtra("bundle" , bundle)
             context.startActivity(intent)
         })
 
         holder.pullRequestsRL.setOnClickListener( View.OnClickListener {
+            bundle.putString("path" , "prs")
             val intent = Intent(context , StatsActivity::class.java)
             intent.putExtra("bundle" , bundle)
             context.startActivity(intent)

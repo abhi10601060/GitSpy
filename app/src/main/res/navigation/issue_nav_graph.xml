@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/issue_nav_graph"
+    app:startDestination="@id/issueNotificationFragment">
+
+    <fragment
+        android:id="@+id/issueNotificationFragment"
+        android:name="com.example.gitspy.ui.fragments.issue_fragments.IssueNotificationFragment"
+        android:label="IssueNotificationFragment" />
+    <fragment
+        android:id="@+id/openIssueFragment"
+        android:name="com.example.gitspy.ui.fragments.issue_fragments.OpenIssueFragment"
+        android:label="OpenIssueFragment" />
+    <fragment
+        android:id="@+id/closedIssueFragment"
+        android:name="com.example.gitspy.ui.fragments.issue_fragments.ClosedIssueFragment"
+        android:label="ClosedIssueFragment" />
+</navigation>
