@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.gitspy.database.TrackedRepoService
 import com.example.gitspy.models.issues.Issue
 import com.example.gitspy.models.issues.Issues
+import com.example.gitspy.models.pulls.PullRequests
 import com.example.gitspy.models.pulls.PullRequestsItem
 import com.example.gitspy.network.GitSpyService
 import retrofit2.Response
@@ -59,5 +60,31 @@ class StatsRepository(private val database : TrackedRepoService , private val ap
         prNotifications = database.trackRepoDao().getSavedPrs(repoId)
     }
 
+    private var openPrLivedata  = MutableLiveData<Resource<PullRequests>>()
+
+    val openPullRequests : LiveData<Resource<PullRequests>>
+    get() = openPrLivedata
+
+    suspend fun getOpenPullrequests(owner: String , repoName : String){
+        val response = api.getPullRequests(owner , repoName)
+        openPrLivedata.postValue(handlePulls(response))
+    }
+
+    private fun handlePulls(response : Response<PullRequests>) : Resource<PullRequests>{
+        if (response.body()!=null){
+            return Resource.Success<PullRequests>(response.body()!!)
+        }
+        return Resource.Error<PullRequests>(response.message())
+    }
+
+    private var closedPrLivedata  = MutableLiveData<Resource<PullRequests>>()
+
+    val closedPullRequests : LiveData<Resource<PullRequests>>
+    get() = closedPrLivedata
+
+    suspend fun getClosedPullrequests(owner: String , repoName : String){
+        val response = api.getClosedPullRequests(owner , repoName)
+        closedPrLivedata.postValue(handlePulls(response))
+    }
 
 }

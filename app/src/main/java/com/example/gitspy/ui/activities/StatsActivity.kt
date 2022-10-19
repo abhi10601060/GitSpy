@@ -60,6 +60,11 @@ class StatsActivity : AppCompatActivity() {
             }
             "prs" ->{
                 bundle.getLong("repoID").let { viewModel.getAllSavedPrNotifications(it) }
+                val ownerName = bundle.getString("owner" , "default")
+                val repoName = bundle.getString("repoName" , "default")
+                Log.d("ABHI", "handleFragments: $ownerName , $repoName")
+                viewModel.getOpenPullRequest(ownerName,repoName)
+                viewModel.getClosedPullRequest(ownerName,repoName)
 
                 val prsFragment = PullRequestsFragment()
                 prsFragment.arguments = bundle

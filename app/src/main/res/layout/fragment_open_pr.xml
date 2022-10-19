@@ -3,11 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Open"
-        android:layout_centerInParent="true"/>
+        android:id="@+id/openPrRV"/>
 
 
 </RelativeLayout>

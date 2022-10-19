@@ -3,10 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Merged"
-        android:layout_centerInParent="true"/>
+        android:id="@+id/mergedPrRV"/>
 
 </RelativeLayout>

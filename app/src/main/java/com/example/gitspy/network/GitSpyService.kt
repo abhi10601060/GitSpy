@@ -48,4 +48,8 @@ interface GitSpyService {
     @GET("/repos/{owner}/{repoName}/issues?state=closed")
     suspend fun getClosedIssues(@Path("owner") owner: String , @Path("repoName") repoName : String) : Response<Issues>
 
+    @Headers("Authorization: $PUBLIC_ACCESS_TOKEN")
+    @GET("/repos/{owner}/{repoName}/pulls?state=closed")
+    suspend fun getClosedPullRequests(@Path("owner") owner: String , @Path("repoName") repoName : String) : Response<PullRequests>
+
 }

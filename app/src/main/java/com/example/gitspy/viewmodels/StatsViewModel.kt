@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gitspy.models.issues.Issue
 import com.example.gitspy.models.issues.Issues
+import com.example.gitspy.models.pulls.PullRequests
 import com.example.gitspy.models.pulls.PullRequestsItem
 import com.example.gitspy.utility.Resource
 import com.example.gitspy.utility.StatsRepository
@@ -53,6 +54,24 @@ class StatsViewModel(private val repository: StatsRepository) : ViewModel(){
     fun getAllSavedPrNotifications(repoId : Long){
         viewModelScope.launch(Dispatchers.IO){
             repository.getAllSavedPrs(repoId)
+        }
+    }
+
+    val openPullRequests : LiveData<Resource<PullRequests>>
+    get() = repository.openPullRequests
+
+    fun getOpenPullRequest(owner : String , repoName : String){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.getOpenPullrequests(owner , repoName)
+        }
+    }
+
+    val closedPullRequests : LiveData<Resource<PullRequests>>
+    get() = repository.closedPullRequests
+
+    fun getClosedPullRequest(owner : String , repoName : String){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.getClosedPullrequests(owner , repoName)
         }
     }
 
