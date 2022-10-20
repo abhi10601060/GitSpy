@@ -4,12 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
 import com.example.gitspy.R
 import com.example.gitspy.ui.fragments.CommitsFragment
 import com.example.gitspy.ui.fragments.IssueFragment
 import com.example.gitspy.ui.fragments.PullRequestsFragment
-import com.example.gitspy.ui.fragments.RelasesFragment
+import com.example.gitspy.ui.fragments.ReleasesFragment
 import com.example.gitspy.utility.GitSpyApplication
 import com.example.gitspy.viewmodels.StatsViewModel
 import com.example.gitspy.viewmodels.StatsViewModelFactory
@@ -59,7 +58,12 @@ class StatsActivity : AppCompatActivity() {
                 fragmentManager.beginTransaction().replace(R.id.parentFL ,commitsFragment).commit()
             }
             "releases" ->{
-                val releasesFragment = RelasesFragment()
+                val ownerName = bundle.getString("owner" , "default")
+                val repoName = bundle.getString("repoName" , "default")
+                Log.d("ABHI", "handleFragments: $ownerName , $repoName")
+                viewModel.getAllReleases(ownerName,repoName)
+
+                val releasesFragment = ReleasesFragment()
                 releasesFragment.arguments = bundle
                 fragmentManager.beginTransaction().replace(R.id.parentFL , releasesFragment).commit()
             }

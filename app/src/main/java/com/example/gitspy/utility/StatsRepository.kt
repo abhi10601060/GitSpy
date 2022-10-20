@@ -9,6 +9,8 @@ import com.example.gitspy.models.issues.Issue
 import com.example.gitspy.models.issues.Issues
 import com.example.gitspy.models.pulls.PullRequests
 import com.example.gitspy.models.pulls.PullRequestsItem
+import com.example.gitspy.models.releases.ReleaseItem
+import com.example.gitspy.models.releases.Releases
 import com.example.gitspy.network.GitSpyService
 import retrofit2.Response
 
@@ -107,4 +109,23 @@ class StatsRepository(private val database : TrackedRepoService , private val ap
         return Resource.Error<CommitList>(response.message())
     }
 
+
+    //******************************************************************** releases ****************************************************
+
+    private var releasesLivedata = MutableLiveData<Resource<Releases>>()
+
+    val releases : LiveData<Resource<Releases>>
+        get() = releasesLivedata
+
+    suspend fun getAllReleases(owner: String , repoName : String){
+        val response = api.getReleases(owner , repoName)
+        releasesLivedata.postValue(handleReleases(response))
+    }
+
+    private fun handleReleases(response : Response<Releases>) : Resource<Releases>{
+        if (response.body()!=null){
+            return Resource.Success<Releases>(response.body()!!)
+        }
+        return Resource.Error<Releases>(response.message())
+    }
 }

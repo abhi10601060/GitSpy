@@ -9,6 +9,7 @@ import com.example.gitspy.models.issues.Issue
 import com.example.gitspy.models.issues.Issues
 import com.example.gitspy.models.pulls.PullRequests
 import com.example.gitspy.models.pulls.PullRequestsItem
+import com.example.gitspy.models.releases.Releases
 import com.example.gitspy.utility.Resource
 import com.example.gitspy.utility.StatsRepository
 import kotlinx.coroutines.Dispatchers
@@ -88,4 +89,14 @@ class StatsViewModel(private val repository: StatsRepository) : ViewModel(){
         }
     }
 
+    //******************************************************************** Releases ****************************************************
+
+    val releases : LiveData<Resource<Releases>>
+        get() = repository.releases
+
+    fun getAllReleases(owner: String , repoName: String){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.getAllReleases(owner , repoName)
+        }
+    }
 }

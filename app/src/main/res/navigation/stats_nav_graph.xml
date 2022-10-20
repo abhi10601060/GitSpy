@@ -14,7 +14,7 @@
         android:label="PullRequestsFragment" />
     <fragment
         android:id="@+id/relasesFragment"
-        android:name="com.example.gitspy.ui.fragments.RelasesFragment"
+        android:name="com.example.gitspy.ui.fragments.ReleasesFragment"
         android:label="RelasesFragment" />
     <fragment
         android:id="@+id/commitsFragment"
