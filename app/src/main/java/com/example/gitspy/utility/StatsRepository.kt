@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.gitspy.database.TrackedRepoService
+import com.example.gitspy.models.commits.CommitList
 import com.example.gitspy.models.issues.Issue
 import com.example.gitspy.models.issues.Issues
 import com.example.gitspy.models.pulls.PullRequests
@@ -85,6 +86,25 @@ class StatsRepository(private val database : TrackedRepoService , private val ap
     suspend fun getClosedPullrequests(owner: String , repoName : String){
         val response = api.getClosedPullRequests(owner , repoName)
         closedPrLivedata.postValue(handlePulls(response))
+    }
+
+    //******************************************************************** Commits ****************************************************
+
+    private var commitsLivedata = MutableLiveData<Resource<CommitList>>()
+
+    val commits : LiveData<Resource<CommitList>>
+    get() = commitsLivedata
+
+    suspend fun getAllCommits(owner: String , repoName : String){
+        val response = api.getCommits(owner , repoName)
+        commitsLivedata.postValue(handleCommits(response))
+    }
+
+    private fun handleCommits(response : Response<CommitList>) : Resource<CommitList>{
+        if (response.body()!=null){
+            return Resource.Success<CommitList>(response.body()!!)
+        }
+        return Resource.Error<CommitList>(response.message())
     }
 
 }

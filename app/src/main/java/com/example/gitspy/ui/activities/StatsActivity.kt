@@ -49,6 +49,11 @@ class StatsActivity : AppCompatActivity() {
                 fragmentManager.beginTransaction().replace(R.id.parentFL ,issueFragment).commit()
             }
             "commits" ->{
+                val ownerName = bundle.getString("owner" , "default")
+                val repoName = bundle.getString("repoName" , "default")
+                Log.d("ABHI", "handleFragments: $ownerName , $repoName")
+                viewModel.getAllCommits(ownerName,repoName)
+
                 val commitsFragment = CommitsFragment()
                 commitsFragment.arguments = bundle
                 fragmentManager.beginTransaction().replace(R.id.parentFL ,commitsFragment).commit()

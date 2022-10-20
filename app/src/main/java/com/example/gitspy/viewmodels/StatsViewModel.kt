@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.gitspy.models.commits.CommitList
 import com.example.gitspy.models.issues.Issue
 import com.example.gitspy.models.issues.Issues
 import com.example.gitspy.models.pulls.PullRequests
@@ -72,6 +73,18 @@ class StatsViewModel(private val repository: StatsRepository) : ViewModel(){
     fun getClosedPullRequest(owner : String , repoName : String){
         viewModelScope.launch(Dispatchers.IO){
             repository.getClosedPullrequests(owner , repoName)
+        }
+    }
+
+
+    //******************************************************************** Commits ****************************************************
+
+    val commits : LiveData<Resource<CommitList>>
+    get() = repository.commits
+
+    fun getAllCommits(owner: String , repoName: String){
+        viewModelScope.launch(Dispatchers.IO){
+            repository.getAllCommits(owner , repoName)
         }
     }
 

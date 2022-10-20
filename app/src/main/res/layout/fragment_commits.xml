@@ -3,11 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="commits"
-        android:layout_centerInParent="true"/>
+        android:background="#21262D"
+        android:padding="12dp"
+        android:id="@+id/commitsHeader"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Commits"
+            android:textColor="@color/button"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/commitsRV"
+        android:layout_below="@+id/commitsHeader"/>
 
 
 </RelativeLayout>
