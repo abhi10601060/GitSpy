@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.LoginActivity">
+
+
+    <TextView
+        android:id="@+id/login_txt_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:text="Welcome To "
+        android:textColor="@color/white"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gitspy"
+        android:layout_below="@+id/login_txt_welcome"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp"
+        android:textColor="@color/githubBlue"
+        android:textStyle="bold"
+        android:id="@+id/login_txt_gitspy"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please Authenticate yourself as                          a Github user..."
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:id="@+id/login_txt_request"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_txt_request"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Authenticate"
+        android:id="@+id/login_btn_authenticate"/>
+
+
+
+
+
+</RelativeLayout>
