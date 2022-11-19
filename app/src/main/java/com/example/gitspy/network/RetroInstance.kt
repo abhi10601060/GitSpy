@@ -13,4 +13,11 @@ object RetroInstance {
             .build()
     }
 
+    fun getGithubInstance() : Retrofit{
+        return Retrofit.Builder()
+            .baseUrl("https://github.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
 }
