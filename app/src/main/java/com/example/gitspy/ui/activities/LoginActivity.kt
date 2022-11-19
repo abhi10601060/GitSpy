@@ -7,11 +7,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import com.example.gitspy.R
+import com.example.gitspy.database.TrackedRepoService
 import com.example.gitspy.models.AccessToken
 import com.example.gitspy.network.GitSpyService
 import com.example.gitspy.network.RetroInstance
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,14 +67,25 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<AccessToken>, response: Response<AccessToken>) {
                 response.body()?.let {
                     login_txt_gitspy.setText(it.access_token.toString())
+                    saveToken(it)
                 }
             }
 
             override fun onFailure(call: Call<AccessToken>, t: Throwable) {
-                TODO("Not yet implemented")
+                Toast.makeText(this@LoginActivity , "Something Went wrong..." , Toast.LENGTH_SHORT)
             }
 
         })
+
+    }
+
+    private fun saveToken(token : AccessToken) {
+        val database =  TrackedRepoService.getInstance(this)
+        var res = database.trackRepoDao().saveToken(token)
+        if(res != -1L){
+            val intent = Intent( this , MainActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

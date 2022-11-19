@@ -2,6 +2,7 @@ package com.example.gitspy.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.gitspy.models.AccessToken
 import com.example.gitspy.models.Item
 import com.example.gitspy.models.commits.CommitListItem
 import com.example.gitspy.models.issues.Issue
@@ -87,5 +88,9 @@ interface TrackRepoDao {
     @Query("select * from pull_requests where repoId = :id ")
     fun getSavedPrs(id : Long) : LiveData<List<PullRequestsItem>>
 
+//********************************************************* Authorization service *************************************************************
+
+    @Insert
+    fun saveToken(token : AccessToken) : Long
 
 }

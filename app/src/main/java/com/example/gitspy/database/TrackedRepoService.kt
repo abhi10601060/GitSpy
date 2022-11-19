@@ -6,6 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.gitspy.models.AccessToken
 import com.example.gitspy.models.Item
 import com.example.gitspy.models.commits.CommitListItem
 import com.example.gitspy.models.issues.Issue
@@ -13,7 +14,7 @@ import com.example.gitspy.models.issues_events.IssueEventsItem
 import com.example.gitspy.models.pulls.PullRequestsItem
 import com.example.gitspy.models.releases.ReleaseItem
 
-@Database(entities = [Item::class , Issue::class , CommitListItem::class, ReleaseItem::class , PullRequestsItem::class , IssueEventsItem::class] , version = 1)
+@Database(entities = [Item::class , Issue::class , CommitListItem::class, ReleaseItem::class , PullRequestsItem::class , IssueEventsItem::class , AccessToken::class] , version = 1)
 //@TypeConverters(Conveters::class)
 abstract class TrackedRepoService : RoomDatabase() {
 
@@ -27,7 +28,7 @@ abstract class TrackedRepoService : RoomDatabase() {
         fun getInstance(context: Context) : TrackedRepoService{
             if (instance == null){
                 synchronized(this){
-                    instance = Room.databaseBuilder(context,TrackedRepoService::class.java,"TrackedRepoDB").build()
+                    instance = Room.databaseBuilder(context,TrackedRepoService::class.java,"TrackedRepoDB").allowMainThreadQueries().build()
                 }
             }
             return instance!!
