@@ -93,4 +93,7 @@ interface TrackRepoDao {
     @Insert
     fun saveToken(token : AccessToken) : Long
 
+    @Query("select * from token")
+    fun getTokenFromDB() : List<AccessToken>
+
 }

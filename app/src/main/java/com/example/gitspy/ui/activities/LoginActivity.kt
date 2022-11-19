@@ -37,11 +37,25 @@ class LoginActivity : AppCompatActivity() {
 
         authenticate = findViewById(R.id.login_btn_authenticate)
 
+        if(isAuthorised()){
+            val intent = Intent(this , MainActivity::class.java)
+            startActivity(intent)
+        }
+
         authenticate.setOnClickListener(View.OnClickListener {
             var intent  = Intent(Intent.ACTION_VIEW , Uri.parse("http://github.com/login/oauth/authorize?client_id=$CLIENT_ID&scope=repo&redirect_uri=$CALLBACK_URI"))
             startActivity(intent)
         })
 
+    }
+
+    private fun isAuthorised(): Boolean {
+        val database =  TrackedRepoService.getInstance(this)
+        val token = database.trackRepoDao().getTokenFromDB()
+        if (token.size != 0){
+            return true
+        }
+        return false
     }
 
     override fun onResume() {
