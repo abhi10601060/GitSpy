@@ -26,7 +26,7 @@ const val CLIENT_ID = "a6eebbf6dd9422605a92"
 const val CLIENT_SECRET = "b0b40372ad636f373efd2ee544700fca7dc06a6e"
 const val CALLBACK_URI = "gitspy://callback"
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(){
 
     lateinit var authenticate : Button
 
@@ -53,6 +53,7 @@ class LoginActivity : AppCompatActivity() {
         val database =  TrackedRepoService.getInstance(this)
         val token = database.trackRepoDao().getTokenFromDB()
         if (token.size != 0){
+            RetroInstance.setAccessToken(token[0].access_token)
             return true
         }
         return false

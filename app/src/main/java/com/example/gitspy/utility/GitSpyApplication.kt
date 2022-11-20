@@ -25,9 +25,12 @@ class GitSpyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         initializeRepo()
-        setupWorker()
-        createNotificationChannel()
+        if (isAuthorised()){
+            setupWorker()
+            createNotificationChannel()
+        }
     }
+
 
     private fun setupWorker() {
         val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
@@ -56,5 +59,14 @@ class GitSpyApplication : Application() {
             manager.createNotificationChannel(channel)
         }
 
+    }
+    private fun isAuthorised(): Boolean {
+        val database =  TrackedRepoService.getInstance(this)
+        val token = database.trackRepoDao().getTokenFromDB()
+        if (token.size != 0){
+            RetroInstance.setAccessToken(token[0].access_token)
+            return true
+        }
+        return false
     }
 }
