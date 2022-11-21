@@ -25,10 +25,8 @@ class GitSpyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         initializeRepo()
-        if (isAuthorised()){
-            setupWorker()
-            createNotificationChannel()
-        }
+        setupWorker()
+        createNotificationChannel()
     }
 
 
@@ -38,7 +36,7 @@ class GitSpyApplication : Application() {
 
         val pendingIntent = PendingIntent.getBroadcast(applicationContext , 0 , intent , 0)
 
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP , System.currentTimeMillis() , 10*60*1000L , pendingIntent)
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP , System.currentTimeMillis() , 1*60*1000L , pendingIntent)
     }
 
     fun initializeRepo() {
