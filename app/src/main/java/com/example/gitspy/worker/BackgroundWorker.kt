@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import com.example.gitspy.database.TrackedRepoService
+import com.example.gitspy.network.RetroInstance
 import com.example.gitspy.utility.GitSpyApplication
 import com.example.gitspy.utility.NetworkUtility
 import kotlinx.coroutines.*
@@ -16,7 +18,7 @@ class BackgroundWorker : BroadcastReceiver() {
 
         Log.d("ABHI", "doWork: request sent from outside scope")
 
-        if(NetworkUtility.isNetworkAvailable(context)){
+        if(NetworkUtility.isNetworkAvailable(context) and isAuthorised(context)){
             CoroutineScope(Dispatchers.IO).launch{
                 Log.d("ABHI", "doWork: request sent from inside scope")
                 val repos = repository.getTrackedRepoList()
@@ -46,6 +48,16 @@ class BackgroundWorker : BroadcastReceiver() {
                 }
             }
         }
+    }
+
+    private fun isAuthorised(context : Context): Boolean {
+        val database =  TrackedRepoService.getInstance(context)
+        val token = database.trackRepoDao().getTokenFromDB()
+        if (token.size != 0){
+            RetroInstance.setAccessToken(token[0].access_token)
+            return true
+        }
+        return false
     }
 
 
